@@ -5,32 +5,39 @@ import utility.*;
 
 public class FacilityTestClient {
     public FacilityTestClient() throws Exception{
-        FacilityUse FU = new FacilityUse();
+        FacilityUtility FU = new FacilityUtility();
 
-        //set up test facilities for testing
-        facility f1 = new facility();
-        facility f2 = new facility();
-        facility f3 = new facility();
-        facility f4 = new facility();
+        facility facility = new facility();
+        facility.setFacilityID(100);
+        facilityDetail facilityDetail = new facilityDetail();
+        facilityDetail.setFacilityID(100);
+        facilityDetail.setName("IoT Department");
+        facilityDetail.setRoomNumber(3);
+        //facilityDetail.setPhoneNumber(1234567890);
+        facility.setFacilityDetails(facilityDetail);
 
-        facilityDetail fd1 = new facilityDetail();
-        facilityDetail fd2 = new facilityDetail();
-        facilityDetail fd3 = new facilityDetail();
-        facilityDetail fd4 = new facilityDetail();
+        FU.addNewFacility(facility);
+        System.out.println("Facility " + facilityDetail.getName() + " has been added to the database.");
 
-        f1.setFacilityID(1);
-        f2.setFacilityID(2);
-        f3.setFacilityID(3);
-        f4.setFacilityID(4);
 
-        fd1.setRoomNumber(10);
-        fd2.setRoomNumber(1);
-        fd3.setRoomNumber(5);
-        fd4.setRoomNumber(8);
+        System.out.println("Here are the details:");
 
-        f1.setFacilityDetails(fd1);
-        f2.setFacilityDetails(fd2);
-        f3.setFacilityDetails(fd3);
-        f4.setFacilityDetails(fd4);
+        //facility fetchFacility = FU.getFacilityInformation(100);
+        //facilityDetail fetchFacilityDetail = fetchFacility.getFacilityDetails();
+
+        displayFacilityDetails(FU.getFacilityInformation(100));
+
+        //adding facilityDetail
+        FU.addFacilityDetail(100, 1234567890);
+
+
+    }
+
+    public void displayFacilityDetails(facility fetchFacility){
+        facilityDetail fetchFacilityDetail = fetchFacility.getFacilityDetails();
+        System.out.println("FacilityID: " + fetchFacility.getFacilityID());
+        System.out.println("Facility Name: " + fetchFacilityDetail.getName());
+        System.out.println("Facility Room Number: " + fetchFacilityDetail.getRoomNumber());
+        System.out.println("Facility Phone Number: " + fetchFacilityDetail.getPhoneNumber());
     }
 }

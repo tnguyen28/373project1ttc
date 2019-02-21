@@ -20,6 +20,7 @@ public class facility {
     }
 
     public void setFacilityID(int facilityID){
+
         this.facilityID = facilityID;
     }
 }
