@@ -7,7 +7,7 @@ public class FacilityUtility {
     public void addNewFacility(facility facility){
         //add to database
     }
-    public void removeFacility(facility facility){
+    public void removeFacility(int id){
         //delete from database
     }
     public void addFacilityDetail(int ID, int phoneNumber){
