@@ -1,10 +1,42 @@
 package view;
 import facility.*;
-import use.FacilityUse;
 import utility.*;
+import java.util.List;
+
 
 public class FacilityTestClient {
     public FacilityTestClient() throws Exception{
+
+        //TEST FACILITIES
+        facility f1 = new facility();
+        facility f2 = new facility();
+        facility f3 = new facility();
+        facilityDetail fd1 = new facilityDetail();
+        facilityDetail fd2 = new facilityDetail();
+        facilityDetail fd3 = new facilityDetail();
+
+        f1.setFacilityID(1);
+        f2.setFacilityID(2);
+        f3.setFacilityID(3);
+
+        fd1.setName("Mobile Dev");
+        fd2.setName("Artificial Intelligence");
+        fd3.setName("Virtual Reality");
+
+        fd1.setRoomNumber(4);
+        fd2.setRoomNumber(10);
+        fd3.setRoomNumber(5);
+
+        fd1.setPhoneNumber(1324567890);
+        fd2.setPhoneNumber(1243567890);
+        fd3.setPhoneNumber(1235467890);
+
+        f1.setFacilityDetails(fd1);
+        f2.setFacilityDetails(fd2);
+        f3.setFacilityDetails(fd3);
+
+
+        //SPECIFIC FACILITY EXAMPLE
         FacilityUtility FU = new FacilityUtility();
 
         facility facility = new facility();
@@ -22,14 +54,32 @@ public class FacilityTestClient {
 
         System.out.println("Here are the details:");
 
-        //facility fetchFacility = FU.getFacilityInformation(100);
-        //facilityDetail fetchFacilityDetail = fetchFacility.getFacilityDetails();
-
+        //initial display of facility
         displayFacilityDetails(FU.getFacilityInformation(100));
 
-        //adding facilityDetail
+        //adding phone number
         FU.addFacilityDetail(100, 1234567890);
 
+        //updated display of facility
+        System.out.println("Facility has been updated: ");
+        displayFacilityDetails(FU.getFacilityInformation(100));
+
+        //requesting available capacity
+        int availableRooms = FU.requestAvailableCapacity(facility);
+        System.out.println("There are " + availableRooms + " rooms available at " + facility.getFacilityDetails().getName());
+
+        //removing facility
+        FU.removeFacility(100);
+        System.out.println("Facility has been removed.");
+
+        //show list of all facilities
+        System.out.println("Here is the list of facilities");
+        List<facility> facilityList = FU.listFacilities();
+        for(facility f : facilityList){
+            facilityDetail fd = f.getFacilityDetails();
+            System.out.println(fd.getName());
+
+        }
 
     }
 
