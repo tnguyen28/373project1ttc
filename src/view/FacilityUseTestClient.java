@@ -115,18 +115,18 @@ public class FacilityUseTestClient {
         System.out.println("Facility vacated");
 
         //list usage from database
-        List<FacilityUse> usageList = FUU.listActualUsage(fuse);
-        Object[][] usage = new Object[usageList.size() + 1][3];
-        usage[0] = new Object[] {"Room #", "Start Date", "End Date"};
-        for (int i = 1; i <= usageList.size(); i++) {
-            usage[i] = new Object[] {usageList.get(i-1).getRoomNumber(), usageList.get(i-1).getStartDate().toString(),
-                    usageList.get(i-1).getEndDate().toString()};
-            if ((int) usage[i][0] == 0) {
-                usage[i][0] = "all";
+        List<FacilityUse> usageList2 = FUU.listActualUsage(fuse);
+        Object[][] usage2 = new Object[usageList2.size() + 1][3];
+        usage2[0] = new Object[] {"Room #", "Start Date", "End Date"};
+        for (int i = 1; i <= usageList2.size(); i++) {
+            usage2[i] = new Object[] {usageList2.get(i-1).getRoomNumber(), usageList2.get(i-1).getStartDate().toString(),
+                    usageList2.get(i-1).getEndDate().toString()};
+            if ((int) usage2[i][0] == 0) {
+                usage2[i][0] = "all";
             }
         }
         System.out.println("Usage at Facility #" + fuse.getFacilityID());
-        for (Object[] row : usage) {
+        for (Object[] row : usage2) {
             System.out.format("\t%-10s%-15s%-15s\n", row);
         }
 
