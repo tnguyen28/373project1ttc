@@ -1,8 +1,7 @@
-package view;
+package testClients;
 import facility.*;
 import utility.maintenanceUtility;
 import maintenance.maintenance;
-import java.util.*;
 
 
 public class MaintenanceTestClient {
