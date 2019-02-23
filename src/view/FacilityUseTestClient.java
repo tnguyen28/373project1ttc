@@ -109,7 +109,34 @@ public class FacilityUseTestClient {
             System.out.format("\t%-10s%-15s%-15s\n", row);
         }
 
+        //vacating a facility
+        System.out.println("Vacating a facility");
+        FUU.vacateFacility(fuse, 1);
+        System.out.println("Facility vacated");
 
+        //list usage from database
+        List<FacilityUse> usageList = FUU.listActualUsage(fuse);
+        Object[][] usage = new Object[usageList.size() + 1][3];
+        usage[0] = new Object[] {"Room #", "Start Date", "End Date"};
+        for (int i = 1; i <= usageList.size(); i++) {
+            usage[i] = new Object[] {usageList.get(i-1).getRoomNumber(), usageList.get(i-1).getStartDate().toString(),
+                    usageList.get(i-1).getEndDate().toString()};
+            if ((int) usage[i][0] == 0) {
+                usage[i][0] = "all";
+            }
+        }
+        System.out.println("Usage at Facility #" + fuse.getFacilityID());
+        for (Object[] row : usage) {
+            System.out.format("\t%-10s%-15s%-15s\n", row);
+        }
+
+        //calculate usage rate
+        System.out.println("calculating usage rate");
+        int rate = (int) FUU.calcUsageRate(f3) * 100;
+        System.out.println("Usage rate at facility #" + f3.getFacilityID() + ": "  + rate + "%");
+
+        //reset props
+        FU.removeFacility(4);
 
     }
 }
