@@ -7,6 +7,9 @@ import java.util.*;
 
 public class MaintenanceTestClient {
     public MaintenanceTestClient() throws Exception {
+
+        maintenanceUtility ms = new maintenanceUtility();
+
         //TEST FACILITIES
         facility f1 = new facility();
         facility f2 = new facility();
@@ -34,5 +37,26 @@ public class MaintenanceTestClient {
         f1.setFacilityDetails(fd1);
         f2.setFacilityDetails(fd2);
         f3.setFacilityDetails(fd3);
+
+        //make facility maintenance request
+        System.out.println("Making Facility Maintenance Request");
+        maintenance maintenance = ms.makeFacilityMaintRequest(f1, 100, "water leak");
+        System.out.println("Request submitted");
+
+        //schedule facility maintenance request
+        System.out.println("Scheduling maintenance request");
+        ms.scheduleMaintenance(maintenance);
+        System.out.println("Request Scheduled");
+
+        //calculate cost of request
+        System.out.println("Calculate total maintenance cost");
+        int totalCost = ms.calcMaintenanceCostForFacility(f1);
+        System.out.println("Total cost for maintenance is " + totalCost + " at facility #" + f1.getFacilityID());
+
+        //list maintenance requests
+        System.out.println("Listing maintenance requests");
+
+        //list completed requests
+
     }
 }

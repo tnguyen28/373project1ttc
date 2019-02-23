@@ -11,7 +11,12 @@ public class FacilityUseUtility {
         } else if(fu.getStartDate().isAfter(fu.getEndDate())){
             System.out.println("End date cannot be before start date.");
         } else {
-            //check database.isInUseDuringInterval
+            try {
+              //  return useDAO.isInUseDuringInterval(facUse);
+            } catch (Exception se) {
+                System.err.println("UseService: Threw an Exception checking if facility is in use during interval.");
+                System.err.println(se.getMessage());
+            }
         }
         return true;
     }
@@ -25,6 +30,12 @@ public class FacilityUseUtility {
             System.out.println("This room is already being used");
         } else {
             //assign in database
+            try {
+               // useDAO.assignFacilityToUse(facUse);
+            } catch (Exception se) {
+                System.err.println("UseService: Threw an Exception assigning a facility to use.");
+                System.err.println(se.getMessage());
+            }
         }
     }
     public void vacateFacility(facility fac, int roomNumber){
@@ -56,10 +67,21 @@ public class FacilityUseUtility {
     }
 
     public List<Inspection> listInspections(facility facility){
+        try {
+           // return useDAO.listInspections(fac);
+        } catch (Exception se) {
+            System.err.println("UseService: Threw an Exception retrieving list of inspections.");
+            System.err.println(se.getMessage());
+        }
         return null;
     }
     public List<FacilityUse> listActualUsage(facility facility){
-
+        try {
+           // return useDAO.listActualUsage(fac);
+        } catch (Exception se) {
+            System.err.println("UseService: Threw an Exception retrieving list of usage.");
+            System.err.println(se.getMessage());
+        }
         return null;
     }
     public double calcUsageRate(facility fac){
@@ -78,6 +100,12 @@ public class FacilityUseUtility {
         return 0.00;
     }
     public LocalDate getFacilityStartDate(facility fac){
+        try {
+           // return useDAO.getFacilityStartDate(fac);
+        } catch (Exception se) {
+            System.err.println("UseService: Threw an Exception retrieving the facility start date.");
+            System.err.println(se.getMessage());
+        }
         return null;
     }
 }

@@ -3,7 +3,7 @@ package view;
 import facility.*;
 import utility.*;
 import use.*;
-
+import java.util.List;
 import java.time.LocalDate;
 
 public class FacilityUseTestClient {
@@ -61,7 +61,55 @@ public class FacilityUseTestClient {
         }
 
         //check if it is being used
+        System.out.println("Check if facility is being used during an interval");
         boolean intervalCheck = FUU.isInUseDuringInterval(fuse);
+
+        System.out.println("Facility #" + fuse.getFacilityID());
+        if(fuse.getRoomNumber() != 0){
+            System.out.println("Room: " + fuse.getRoomNumber());
+        }
+        if(intervalCheck){
+            System.out.print(" is being used from " + fuse.getStartDate() + " until " + fuse.getEndDate() + ".");
+        } else {
+            System.out.println("is not being used ");
+        }
+
+        //assign facility to use
+        System.out.println("Assign facility to use");
+        FUU.assignFacilityToUse(fuse);
+        System.out.println("Facility assigned");
+
+        //check if in use
+        System.out.println("Check if facility is being used during an interval");
+        boolean intervalCheck1 = FUU.isInUseDuringInterval(fuse);
+
+        System.out.println("Facility #" + fuse.getFacilityID());
+        if(fuse.getRoomNumber() != 0){
+            System.out.println("Room: " + fuse.getRoomNumber());
+        }
+        if(intervalCheck1){
+            System.out.print(" is being used from " + fuse.getStartDate() + " until " + fuse.getEndDate() + ".");
+        } else {
+            System.out.println("is not being used ");
+        }
+
+        //list usage from database
+        List<FacilityUse> usageList = FUU.listActualUsage(fuse);
+        Object[][] usage = new Object[usageList.size() + 1][3];
+        usage[0] = new Object[] {"Room #", "Start Date", "End Date"};
+        for (int i = 1; i <= usageList.size(); i++) {
+            usage[i] = new Object[] {usageList.get(i-1).getRoomNumber(), usageList.get(i-1).getStartDate().toString(),
+                    usageList.get(i-1).getEndDate().toString()};
+            if ((int) usage[i][0] == 0) {
+                usage[i][0] = "all";
+            }
+        }
+        System.out.println("Usage at Facility #" + fuse.getFacilityID());
+        for (Object[] row : usage) {
+            System.out.format("\t%-10s%-15s%-15s\n", row);
+        }
+
+
 
     }
 }
