@@ -2,6 +2,7 @@ package testClients;
 import facility.*;
 import utility.maintenanceUtility;
 import maintenance.maintenance;
+import java.util.*;
 
 
 public class MaintenanceTestClient {
@@ -20,6 +21,7 @@ public class MaintenanceTestClient {
         f1.setFacilityID(1);
         f2.setFacilityID(2);
         f3.setFacilityID(3);
+
 
         fd1.setName("Mobile Dev");
         fd2.setName("Artificial Intelligence");
@@ -54,8 +56,50 @@ public class MaintenanceTestClient {
 
         //list maintenance requests
         System.out.println("Listing maintenance requests");
+        List<maintenance> maintRequestList = ms.listMaintRequest(f3);
+        Object[][] requests = new Object[maintRequestList.size() + 1][2];
+        requests[0] = new Object[] {"Maintenance Request Details", "Cost"};
+        for (int i = 1; i <= maintRequestList.size(); i++) {
+            requests[i] = new Object[] {maintRequestList.get(i-1).getDetails(), maintRequestList.get(i-1).getCost()};
+        }
+        System.out.println("maintenance requests at Facility #" + f3.getFacilityID() + ":");
+        for (Object[] row : requests) {
+            System.out.format("   %-29s%6s\n", row);
+        }
+        System.out.println("List maintenance completed at a facility");
+        List<maintenance> maintenanceList = ms.listMaintenance(f3);
+        Object[][] maintenanceTable = new Object[maintenanceList.size() + 1][2];
+        maintenanceTable[0] = new Object[] {"Maintenance Details", "Cost"};
+        for (int i = 1; i <= maintenanceList.size(); i++) {
+            maintenanceTable[i] = new Object[] {maintenanceList.get(i-1).getDetails(), maintenanceList.get(i-1).getCost()};
+        }
+        System.out.println("Maintenance completed at Facility #" + f3.getFacilityID() + ":");
+        for (Object[] row : maintenanceTable) {
+            System.out.format("   %-30s%6s\n", row);
+        }
 
-        //list completed requests
+        //uses sample data to list facility problems, formatted as a table
+        System.out.println("List all problems that have affected a facility");
+        List<maintenance> facilityProblemsList = ms.listFacilityProblems(f3);
+        Object[][] problems = new Object[facilityProblemsList.size() + 1][2];
+        problems[0] = new Object[] {"Facility Problem", "Cost"};
+        for (int i = 1; i <= facilityProblemsList.size(); i++) {
+            problems[i] = new Object[] {facilityProblemsList.get(i-1).getDetails(), facilityProblemsList.get(i-1).getCost()};
+        }
+        System.out.println("Problems at Facility #" + f3.getFacilityID() + ":");
+        for (Object[] row : problems) {
+            System.out.format("   %-30s%6s\n", row);
+        }
+
+        System.out.println("Calculating the down time for a facility");
+        int downTime = ms.calcDownTimeForFacility(f3);
+        System.out.println("Facility #" + f3.getFacilityID() + " was down for " + downTime + " days, ");
+
+        System.out.println("Calculating the problem rate for a facility");
+        double problemRate = ms.calcProblemRateForFacility(f3) * 100;
+        System.out.print("\nThe problem rate at Facility #" + f3.getFacilityID() + " is ");
+        System.out.format("%.2f", problemRate);
+        System.out.print("%.");
 
     }
 }

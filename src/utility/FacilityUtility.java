@@ -6,6 +6,9 @@ import java.time.LocalDate;
 
 public class FacilityUtility {
 
+//    private FacilityDAO facDAO = new FacilityDAO();
+//    private UseDAO useDAO = new UseDAO();
+
     public void addNewFacility(facility facility){
         //add to database
         try {
