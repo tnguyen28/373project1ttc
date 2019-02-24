@@ -3,8 +3,12 @@ import facility.*;
 import use.*;
 import java.util.List;
 import java.time.LocalDate;
+import database.*;
 
 public class FacilityUseUtility {
+
+    private UseDAO useDAO = new UseDAO();
+
     public boolean isInUseDuringInterval(FacilityUse fu){
         if(fu.getRoomNumber() > fu.getFacilityDetails().getRoomNumber()){
             System.out.println("There are only " + fu.getFacilityDetails().getRoomNumber() + " number of rooms available.");
@@ -12,7 +16,7 @@ public class FacilityUseUtility {
             System.out.println("End date cannot be before start date.");
         } else {
             try {
-              //  return useDAO.isInUseDuringInterval(facUse);
+                return useDAO.isInUseDuringInterval(fu);
             } catch (Exception se) {
                 System.err.println("UseService: Threw an Exception checking if facility is in use during interval.");
                 System.err.println(se.getMessage());
@@ -31,7 +35,7 @@ public class FacilityUseUtility {
         } else {
             //assign in database
             try {
-               // useDAO.assignFacilityToUse(facUse);
+                useDAO.assignFacilityToUse(fu);
             } catch (Exception se) {
                 System.err.println("UseService: Threw an Exception assigning a facility to use.");
                 System.err.println(se.getMessage());
@@ -51,7 +55,7 @@ public class FacilityUseUtility {
                     if (use.getRoomNumber() == 0 || (use.getRoomNumber() == roomNumber))  {
                         if ((LocalDate.now().equals(use.getStartDate())) || LocalDate.now().isAfter(use.getStartDate())) {
                             if ((LocalDate.now().equals(use.getEndDate())) || (LocalDate.now().isBefore(use.getEndDate()))) {
-                                //useDAO.vacateFacility(fac, roomNumber);
+                                useDAO.vacateFacility(fac, roomNumber);
                             }
                         } else {
                             System.out.println("This room is not currently in use. Unable to vacate at this time.");
@@ -68,7 +72,7 @@ public class FacilityUseUtility {
 
     public List<Inspection> listInspections(facility facility){
         try {
-           // return useDAO.listInspections(fac);
+            return useDAO.listInspections(facility);
         } catch (Exception se) {
             System.err.println("UseService: Threw an Exception retrieving list of inspections.");
             System.err.println(se.getMessage());
@@ -77,7 +81,7 @@ public class FacilityUseUtility {
     }
     public List<FacilityUse> listActualUsage(facility facility){
         try {
-           // return useDAO.listActualUsage(fac);
+            return useDAO.listActualUsage(facility);
         } catch (Exception se) {
             System.err.println("UseService: Threw an Exception retrieving list of usage.");
             System.err.println(se.getMessage());
@@ -99,9 +103,9 @@ public class FacilityUseUtility {
 
         return 0.00;
     }
-    public LocalDate getFacilityStartDate(facility fac){
+    public LocalDate getFacilityStartDate(facility facility){
         try {
-           // return useDAO.getFacilityStartDate(fac);
+            return useDAO.getFacilityStartDate(facility);
         } catch (Exception se) {
             System.err.println("UseService: Threw an Exception retrieving the facility start date.");
             System.err.println(se.getMessage());
