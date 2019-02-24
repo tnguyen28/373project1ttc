@@ -14,10 +14,6 @@ public class FacilityDAO {
 
     public FacilityDAO() {}
 
-    /***
-     * Removes facility from the facility table, facility_detail table, and use table.
-     * @param ID of facility to be removed
-     */
     public void removeFacility(int ID) {
 
         try {
@@ -70,12 +66,6 @@ public class FacilityDAO {
 
     }
 
-    /***
-     * Returns detail information about a facility, including its name, facility ID, number of rooms,
-     * and a phone number if it's listed.
-     * @param ID of facility
-     * @return facility detail information
-     */
     public facility getFacilityInformation(int ID) {
 
         try {
@@ -117,11 +107,6 @@ public class FacilityDAO {
         return null;
     }
 
-    /***
-     * Add a new facility to the facility table and details about the facility to facility_detail table.
-     * Must create a new facility object before running addNewFacility method.
-     * @param fac Facility object to be added to the database
-     */
     public void addNewFacility(facility fac) {
         Connection con = DBHelper.getConnection();
         PreparedStatement facPst = null;
@@ -166,11 +151,6 @@ public class FacilityDAO {
         }
     }
 
-    /***
-     * Adds optional detail information (phone number) about the facility
-     * @param ID facility ID
-     * @param phoneNumber number to be added
-     */
     public void addFacilityDetail(int ID, int phoneNumber) {
 
         try {
@@ -200,10 +180,6 @@ public class FacilityDAO {
 
     }
 
-    /***
-     * List the name and ID number of all the facilities
-     * @return list of facilities
-     */
     public List<facility> listFacilities() {
 
         List<facility> listOfFac = new ArrayList<facility>();

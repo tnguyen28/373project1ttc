@@ -43,11 +43,8 @@ public class MaintenanceTestClient {
         System.out.println("Making Facility Maintenance Request");
         maintenance maintenance = ms.makeFacilityMaintRequest(f1, 100, "water leak");
         System.out.println("Request submitted");
-
-        //schedule facility maintenance request
-        System.out.println("Scheduling maintenance request");
         ms.scheduleMaintenance(maintenance);
-        System.out.println("Request Scheduled");
+        System.out.println("Maintenance scheduled");
 
         //calculate cost of request
         System.out.println("Calculate total maintenance cost");

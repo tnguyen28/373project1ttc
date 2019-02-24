@@ -60,8 +60,7 @@ public class MaintenanceDAO {
 
         }
         catch (SQLException se) {
-            System.err.println("MaintenanceDAO: Threw a SQLException adding a maintenance "
-                    + "request to maintenance table.");
+            System.err.println("MaintenanceDAO: Threw a SQLException adding a maintenance ");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
@@ -80,8 +79,7 @@ public class MaintenanceDAO {
 
         }
         catch (SQLException se) {
-            System.err.println("MaintenanceDAO: Threw a SQLException removing a "
-                    + "maintenance request from maint_request table.");
+            System.err.println("MaintenanceDAO: Threw a SQLException removing a ");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
@@ -112,8 +110,7 @@ public class MaintenanceDAO {
 
         }
         catch (SQLException se) {
-            System.err.println("MaintenanceDAO: Threw a SQLException calculating total "
-                    + "maintenance cost from maintenance table.");
+            System.err.println("MaintenanceDAO: Threw a SQLException calculating total ");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
@@ -132,7 +129,7 @@ public class MaintenanceDAO {
                     fac.getFacilityID() + "' ORDER BY cost";
 
             ResultSet maintRS = st.executeQuery(listMaintRequestsQuery);
-            System.out.println("UseDAO: *************** Query " + listMaintRequestsQuery + "\n");
+            System.out.println("MaintenanceDAO: *************** Query " + listMaintRequestsQuery + "\n");
 
             while ( maintRS.next() ) {
                 maintenance maintenanceRequest = new maintenance();
@@ -148,8 +145,7 @@ public class MaintenanceDAO {
 
         }
         catch (SQLException se) {
-            System.err.println("UseDAO: Threw a SQLException retreiving list of maintenance "
-                    + "requests from maint_request table.");
+            System.err.println("MaintenanceDAO: Threw a SQLException retreiving list of maintenance ");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }

@@ -55,7 +55,7 @@ public class FacilityUseTestClient {
 
 
         //listing example  inspection
-        System.out.println("Inspection for: " + f3.getFacilityDetails().getName());
+        System.out.println("Inspection for " + f3.getFacilityDetails().getName());
         for(Inspection inspection : FUU.listInspections(f3)){
             System.out.println("Detail: " + inspection.getInspectionDetail());
         }

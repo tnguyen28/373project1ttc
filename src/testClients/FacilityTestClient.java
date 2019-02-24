@@ -66,11 +66,11 @@ public class FacilityTestClient {
 
         //requesting available capacity
         int availableRooms = FU.requestAvailableCapacity(facility);
-        System.out.println("There are " + availableRooms + " rooms available at " + facility.getFacilityDetails().getName());
+        System.out.println("There are " + availableRooms + " rooms available in " + facility.getFacilityDetails().getName());
 
         //removing facility
         FU.removeFacility(100);
-        System.out.println("Facility has been removed.");
+        System.out.println("Facility #100 has been removed.");
 
         //show list of all facilities
         System.out.println("Here is the list of facilities");

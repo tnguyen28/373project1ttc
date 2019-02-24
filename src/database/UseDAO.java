@@ -16,12 +16,7 @@ public class UseDAO {
 
     public UseDAO() {}
 
-    /***
-     * List the inspections at a particular facility.
-     * Uses sample dummy data in database.
-     * @param fac facility to search for inspections
-     * @return a list of inspections
-     */
+
     public List<Inspection> listInspections(facility fac) {
 
         List<Inspection> listOfInspec = new ArrayList<Inspection>();
@@ -71,10 +66,10 @@ public class UseDAO {
 
             //check if dates in database overlap with input interval
             while (useRS.next()) {
-                LocalDate assignStart = useRS.getDate("start_date").toLocalDate();
-                LocalDate assignEnd = useRS.getDate("end_date").toLocalDate();
-                if (facUse.getStartDate().isBefore(assignEnd) && (assignStart.isBefore(facUse.getEndDate()) ||
-                        assignStart.equals(facUse.getEndDate()))) {
+                LocalDate start = useRS.getDate("start_date").toLocalDate();
+                LocalDate end = useRS.getDate("end_date").toLocalDate();
+                if (facUse.getStartDate().isBefore(end) && (start.isBefore(facUse.getEndDate()) ||
+                        start.equals(facUse.getEndDate()))) {
                     result = true;
                     break;
                 }
@@ -86,8 +81,7 @@ public class UseDAO {
 
         }
         catch (SQLException se) {
-            System.err.println("UseDAO: Threw a SQLException checking if "
-                    + "facility is in use during an interval.");
+            System.err.println("UseDAO: Threw a SQLException checking if facility is in use during an interval.");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
@@ -96,14 +90,6 @@ public class UseDAO {
 
     }
 
-
-    /***
-     * Assigns a facility to use by adding it to the use table.
-     * UseService has already confirmed validity of start and end date, existence of
-     * room number, and if room is already in use during this interval.
-     * Room number 0 indicates the entire facility is being assigned to use.
-     * @param facUse instance of FacilityUse to be assigned which indicates the room number and start/end dates
-     */
     public void assignFacilityToUse(FacilityUse facUse) {
 
         Connection con = DBHelper.getConnection();
@@ -145,7 +131,7 @@ public class UseDAO {
                     fac.getFacilityID() + "' ORDER BY room_number, start_date";
 
             ResultSet useRS = st.executeQuery(listUsageQuery);
-            System.out.println("UseDAO: *************** Query " + listUsageQuery + "\n");
+            System.out.println("UseDAO: *************** Query " + listUsageQuery);
 
             while ( useRS.next() ) {
                 FacilityUse use = new FacilityUse();
@@ -193,7 +179,7 @@ public class UseDAO {
             }
 
             st.execute(vacateQuery);
-            System.out.println("UseDAO: *************** Query " + vacateQuery + "\n");
+            System.out.println("UseDAO: *************** Query " + vacateQuery);
 
         }
         catch (SQLException se){
@@ -204,13 +190,7 @@ public class UseDAO {
 
     }
 
-    /***
-     * Gets the creation date of a facility, which is the earliest start date
-     * assigned in the use table for that facility.
-     * @param fac Facility to get the start date
-     * @return start date for the facility
-     */
-    public LocalDate getFacilityStartDate(Facility fac) {
+    public LocalDate getFacilityStartDate(facility fac) {
 
         LocalDate facilityStartDate = null;
         try {
@@ -232,8 +212,7 @@ public class UseDAO {
 
         }
         catch (SQLException se) {
-            System.err.println("UseDAO: Threw a SQLException retreiving facility start date "
-                    + "from the use table.");
+            System.err.println("UseDAO: Threw a SQLException retrieving facility start date.");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
