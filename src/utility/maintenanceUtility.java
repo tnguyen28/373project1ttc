@@ -53,6 +53,7 @@ public class maintenanceUtility {
         }
         return 0;
     }
+    
     public int calcDownTimeForFacility(facility facility){
         int downTime= 0;
         try {

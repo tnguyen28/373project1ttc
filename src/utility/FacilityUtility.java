@@ -29,7 +29,7 @@ public class FacilityUtility {
         }
     }
     public void addFacilityDetail(int ID, int phoneNumber){
-        //add a detail
+        //add detail
         try {
             facDAO.addFacilityDetail(ID, phoneNumber);
         } catch (Exception se) {

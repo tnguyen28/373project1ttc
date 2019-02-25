@@ -82,13 +82,12 @@ public class FacilityUseUtility {
         }
         return null;
     }
-    public double calcUsageRate(facility fac){
+    public double calcUsageRate(facility facility){
         try {
-            FacilityUtility FS = new FacilityUtility();
-            int totalRooms = fac.getFacilityDetails().getRoomNumber();
-            int availableRooms = FS.requestAvailableCapacity(fac);
-            int usedRooms = totalRooms - availableRooms;
-            return Math.round(((double)usedRooms / totalRooms) * 100d)/100d;
+            FacilityUtility ur = new FacilityUtility();
+            int usedRooms = facility.getFacilityDetails().getRoomNumber() - ur.requestAvailableCapacity(facility);
+
+            return Math.round(((double)usedRooms / facility.getFacilityDetails().getRoomNumber()) * 100d)/100;
 
         } catch (Exception se) {
             System.err.println("FacilityUseUtility: Threw an Exception retrieving calculate the usage rate.");

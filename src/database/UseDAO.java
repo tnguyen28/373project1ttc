@@ -28,7 +28,7 @@ public class UseDAO {
                     + "facility_id = '" + fac.getFacilityID() + "'";
 
             ResultSet useRS = st.executeQuery(listInspectionsQuery);
-            System.out.println("UseDAO: *************** Query " + listInspectionsQuery + "\n");
+            System.out.println("UseDAO: *************** Query " + listInspectionsQuery);
 
             while ( useRS.next() ) {
                 Inspection ins = new Inspection();
@@ -62,7 +62,7 @@ public class UseDAO {
                     " AND room_number IN (0, " + facUse.getRoomNumber() + ")";
 
             ResultSet useRS = st.executeQuery(selectUse);
-            System.out.println("UseDAO: *************** Query " + selectUse + "\n");
+            System.out.println("UseDAO: *************** Query " + selectUse);
 
             while (useRS.next()) {
                 LocalDate start = useRS.getDate("start_date").toLocalDate();
@@ -94,7 +94,6 @@ public class UseDAO {
         PreparedStatement usePst = null;
 
         try {
-            //Insert the facility ID, room number, and start/end dates into use table
             String useStm = "INSERT INTO use (facility_id, room_number, start_date, "
                     + "end_date) VALUES (?, ?, ?, ?)";
             usePst = con.prepareStatement(useStm);
@@ -103,7 +102,7 @@ public class UseDAO {
             usePst.setDate(3, Date.valueOf(facUse.getStartDate()));
             usePst.setDate(4, Date.valueOf(facUse.getEndDate()));
             usePst.executeUpdate();
-            System.out.println("UseDAO: *************** Query " + usePst + "\n");
+            System.out.println("UseDAO: *************** Query " + usePst);
 
             //close to manage resources
             usePst.close();
@@ -195,7 +194,7 @@ public class UseDAO {
                     fac.getFacilityID() + "' ORDER BY start_date LIMIT 1";
 
             ResultSet useRS = st.executeQuery(getFacilityStartDateQuery);
-            System.out.println("UseDAO: *************** Query " + getFacilityStartDateQuery + "\n");
+            System.out.println("UseDAO: *************** Query " + getFacilityStartDateQuery);
 
             while ( useRS.next() ) {
                 facilityStartDate = useRS.getDate("start_date").toLocalDate();

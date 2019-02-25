@@ -17,21 +17,6 @@ public class FacilityDAO {
     public void removeFacility(int ID) {
 
         try {
-            Statement st = DBHelper.getConnection().createStatement();
-            String removeFacilityUseQuery = "delete from use where facility_id = '" + ID + "'";
-            st.execute(removeFacilityUseQuery);
-
-            System.out.println("FacilityDAO: *************** Query " + removeFacilityUseQuery);
-            //close to manage resources
-            st.close();
-        }
-        catch (SQLException se) {
-            System.err.println("FacilityDAO: Threw SQLException removing the Facility from Use table.");
-            System.err.println(se.getMessage());
-            se.printStackTrace();
-        }
-
-        try {
             //remove from facility_detail table
             Statement st = DBHelper.getConnection().createStatement();
             String removeFacilityDetailQuery = "delete from facility_detail where facility_id = '" + ID + "'";
@@ -42,7 +27,7 @@ public class FacilityDAO {
             st.close();
         }
         catch (SQLException se) {
-            System.err.println("FacilityDAO: Threw SQLException removing the Facility Detail from Facility Detail table.");
+            System.err.println("FacilityDAO: Threw SQLException removing the facility");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
@@ -58,7 +43,21 @@ public class FacilityDAO {
             st.close();
         }
         catch (SQLException se) {
-            System.err.println("FacilityDAO: Threw SQLException removing the Facility object from Facility table.");
+            System.err.println("FacilityDAO: Threw SQLException removing the facility ");
+            System.err.println(se.getMessage());
+            se.printStackTrace();
+        }
+        try {
+            Statement st = DBHelper.getConnection().createStatement();
+            String removeFacilityUseQuery = "delete from use where facility_id = '" + ID + "'";
+            st.execute(removeFacilityUseQuery);
+
+            System.out.println("FacilityDAO: *************** Query " + removeFacilityUseQuery);
+            //close to manage resources
+            st.close();
+        }
+        catch (SQLException se) {
+            System.err.println("FacilityDAO: Threw SQLException removing the facility");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
@@ -75,30 +74,30 @@ public class FacilityDAO {
             //Get details about facility
             Statement st = DBHelper.getConnection().createStatement();
             String selectDetailQuery = "SELECT name,facility_id, number_of_rooms, phone_number FROM facility_detail WHERE facility_id = '" + ID + "'";
-            ResultSet dRS = st.executeQuery(selectDetailQuery);
+            ResultSet detailRS = st.executeQuery(selectDetailQuery);
             facilityDetail detail = new facilityDetail();
 
             System.out.println("FacilityDAO: *************** Query " + selectDetailQuery);
 
-            while ( dRS.next() ) {
-                detail.setName(dRS.getString("name"));
-                detail.setFacilityID(dRS.getInt("facility_id"));
-                detail.setRoomNumber(dRS.getInt("number_of_rooms"));
-                if (dRS.getInt("phone") != 0) {
-                    detail.setPhoneNumber(dRS.getInt("phone"));
+            while ( detailRS.next() ) {
+                detail.setName(detailRS.getString("name"));
+                detail.setFacilityID(detailRS.getInt("facility_id"));
+                detail.setRoomNumber(detailRS.getInt("number_of_rooms"));
+                if (detailRS.getInt("phone") != 0) {
+                    detail.setPhoneNumber(detailRS.getInt("phone"));
                 }
             }
 
             f1.setFacilityDetails(detail);
 
             //close to manage resources
-            dRS.close();
+            detailRS.close();
 
             return f1;
         }
 
         catch (SQLException se) {
-            System.err.println("FacilityDAO: Threw SQLException retrieving the Facility object.");
+            System.err.println("FacilityDAO: Threw SQLException retrieving the facility");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
@@ -139,7 +138,7 @@ public class FacilityDAO {
                 }
 
             } catch (SQLException ex) {
-                System.err.println("FacilityDAO: Threw SQLException saving facility object.");
+                System.err.println("FacilityDAO: Threw SQLException saving facility");
                 System.err.println(ex.getMessage());
             }
         }

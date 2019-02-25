@@ -58,7 +58,7 @@ public class MaintenanceTestClient {
         for (int i = 1; i <= maintRequestList.size(); i++) {
             requests[i] = new Object[] {maintRequestList.get(i-1).getDetails(), maintRequestList.get(i-1).getCost()};
         }
-        System.out.println("maintenance requests at Facility #" + f3.getFacilityID() + ":");
+        System.out.println("Maintenance requests at Facility #" + f3.getFacilityID() + ":");
         for (Object[] row : requests) {
             System.out.format("\n", row);
         }
@@ -87,7 +87,7 @@ public class MaintenanceTestClient {
             System.out.format("\n", row);
         }
         double problemRate = ms.calcProblemRateForFacility(f3) * 100;
-        System.out.print("\nThe problem rate at Facility #" + f3.getFacilityID() + " is %" + problemRate);
+        System.out.print("The problem rate at Facility #" + f3.getFacilityID() + " is %" + problemRate);
 
         int downTime = ms.calcDownTimeForFacility(f3);
         System.out.println("Facility #" + f3.getFacilityID() + " was down for " + downTime + " days. ");

@@ -69,7 +69,7 @@ public class FacilityUseTestClient {
             System.out.println("Room: " + fuse.getRoomNumber());
         }
         if(intervalCheck){
-            System.out.print(" is being used from " + fuse.getStartDate() + " until " + fuse.getEndDate() + ".");
+            System.out.print(" is being used from " + fuse.getStartDate() + " until " + fuse.getEndDate());
         } else {
             System.out.println("is not being used ");
         }
@@ -87,7 +87,7 @@ public class FacilityUseTestClient {
         if(intervalCheck1){
             System.out.print(" is being used from " + fuse.getStartDate() + " until " + fuse.getEndDate() + ".");
         } else {
-            System.out.println("is not being used ");
+            System.out.println("is not being used.");
         }
 
         //list usage from database
@@ -123,7 +123,7 @@ public class FacilityUseTestClient {
         }
 
         //calculate usage rate
-        int rate = (int) FUU.calcUsageRate(f3) * 100;
+        double rate = (int) FUU.calcUsageRate(f3) * 100;
         System.out.println("Usage rate at facility #" + f3.getFacilityID() + ": "  + rate + "%");
 
 
