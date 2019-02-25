@@ -18,7 +18,7 @@ public class FacilityUseUtility {
             try {
                 return useDAO.isInUseDuringInterval(fu);
             } catch (Exception se) {
-                System.err.println("UseService: Threw an Exception checking if facility is in use during interval.");
+                System.err.println("FacilityUseUtility: Threw an Exception checking if facility is in use during interval.");
                 System.err.println(se.getMessage());
             }
         }
@@ -33,11 +33,10 @@ public class FacilityUseUtility {
         } else if(isInUseDuringInterval(fu)){
             System.out.println("This room is already being used");
         } else {
-            //assign in database
             try {
                 useDAO.assignFacilityToUse(fu);
             } catch (Exception se) {
-                System.err.println("UseService: Threw an Exception assigning a facility to use.");
+                System.err.println("FacilityUseUtility: Threw an Exception assigning a facility to use.");
                 System.err.println(se.getMessage());
             }
         }
@@ -65,7 +64,7 @@ public class FacilityUseUtility {
             }
         }
         catch (Exception se) {
-            System.err.println("UseService: Threw an Exception vacating a facility.");
+            System.err.println("FacilityUseUtility: Threw an Exception vacating a facility.");
             System.err.println(se.getMessage());
         }
     }
@@ -74,7 +73,7 @@ public class FacilityUseUtility {
         try {
             return useDAO.listInspections(facility);
         } catch (Exception se) {
-            System.err.println("UseService: Threw an Exception retrieving list of inspections.");
+            System.err.println("FacilityUseUtility: Threw an Exception retrieving list of inspections.");
             System.err.println(se.getMessage());
         }
         return null;
@@ -83,7 +82,7 @@ public class FacilityUseUtility {
         try {
             return useDAO.listActualUsage(facility);
         } catch (Exception se) {
-            System.err.println("UseService: Threw an Exception retrieving list of usage.");
+            System.err.println("FacilityUseUtility: Threw an Exception retrieving list of usage.");
             System.err.println(se.getMessage());
         }
         return null;
@@ -97,7 +96,7 @@ public class FacilityUseUtility {
             return Math.round(((double)usedRooms / totalRooms) * 100d)/100d;
 
         } catch (Exception se) {
-            System.err.println("UseService: Threw an Exception retrieving list of usage for calculating the usage rate.");
+            System.err.println("FacilityUseUtility: Threw an Exception retrieving calculate the usage rate.");
             System.err.println(se.getMessage());
         }
 
@@ -107,7 +106,7 @@ public class FacilityUseUtility {
         try {
             return useDAO.getFacilityStartDate(facility);
         } catch (Exception se) {
-            System.err.println("UseService: Threw an Exception retrieving the facility start date.");
+            System.err.println("FacilityUseUtility: Threw an Exception retrieving the facility start date.");
             System.err.println(se.getMessage());
         }
         return null;

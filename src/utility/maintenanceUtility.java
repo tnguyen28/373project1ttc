@@ -15,7 +15,7 @@ public class maintenanceUtility {
         try {
            return maintenanceDAO.makeFacilityMaintRequest(facility, maintenanceDetails, cost);
         } catch (Exception se) {
-            System.err.println("MaintenanceService: Threw an Exception making a facility maintenance request.");
+            System.err.println("MaintenanceUtility: Threw an Exception making a facility maintenance request.");
             System.err.println(se.getMessage());
         }
         return null;
@@ -26,7 +26,7 @@ public class maintenanceUtility {
         try {
             maintenanceDAO.scheduleMaintenance(maintRequest);
         } catch (Exception se) {
-            System.err.println("MaintenanceService: Threw an Exception scheduling maintenance.");
+            System.err.println("MaintenanceUtility: Threw an Exception scheduling maintenance.");
             System.err.println(se.getMessage());
         }
     }
@@ -35,7 +35,7 @@ public class maintenanceUtility {
         try {
             return maintenanceDAO.calcMaintenanceCostForFacility(fac);
         } catch (Exception se) {
-            System.err.println("MaintenanceService: Threw an Exception calculating "
+            System.err.println("MaintenanceUtility: Threw an Exception calculating "
                     + "maintenance cost for facility.");
             System.err.println(se.getMessage());
         }
@@ -48,7 +48,7 @@ public class maintenanceUtility {
             double totalDay = ChronoUnit.DAYS.between(facilityStartDate, LocalDate.now());
             return calcDownTimeForFacility(facility) / totalDay;
         } catch (Exception se) {
-            System.err.println("MaintenanceService: Threw an Exception calculating the down time for a facility.");
+            System.err.println("MaintenanceUtility: Threw an Exception calculating the down time for a facility.");
             System.err.println(se.getMessage());
         }
         return 0;
@@ -56,8 +56,8 @@ public class maintenanceUtility {
     public int calcDownTimeForFacility(facility facility){
         int downTime= 0;
         try {
-            int numberOfCompletedMaintItems = maintenanceDAO.listMaintenance(facility).size();
-            downTime = numberOfCompletedMaintItems * 3;
+            int completedMaintItems = maintenanceDAO.listMaintenance(facility).size();
+            downTime = completedMaintItems * 3;
         } catch (Exception se) {
             System.err.println("MaintenanceService: Threw an Exception calculating the down time for a facility.");
             System.err.println(se.getMessage());
@@ -69,7 +69,7 @@ public class maintenanceUtility {
         try {
             return maintenanceDAO.listMaintRequests(facility);
         } catch (Exception se) {
-            System.err.println("MaintenanceService: Threw an Exception listing maintenance requests.");
+            System.err.println("MaintenanceUtility: Threw an Exception listing maintenance requests.");
             System.err.println(se.getMessage());
         }
         return null;
@@ -79,7 +79,7 @@ public class maintenanceUtility {
         try {
             return maintenanceDAO.listMaintenance(facility);
         } catch (Exception se) {
-            System.err.println("MaintenanceService: Threw an Exception listing maintenance");
+            System.err.println("MaintenanceUtility: Threw an Exception listing maintenance");
             System.err.println(se.getMessage());
         }
         return null;
@@ -91,17 +91,9 @@ public class maintenanceUtility {
             facilityProblems.addAll(maintenanceDAO.listMaintRequests(facility));
             facilityProblems.addAll(maintenanceDAO.listMaintenance(facility));
 
-//            //sort problems by cost
-//            Collections.sort(facilityProblems, new Comparator<maintenance>() {
-//                @Override
-//                public int compare(maintenance m1, maintenance m2) {
-//                    return (m2.getCost() > m1.getCost()) ? -1 : 1;
-//                }
-//            });
-
             return facilityProblems;
         } catch (Exception se) {
-            System.err.println("MaintenanceService: Threw an Exception listing all facility problems.");
+            System.err.println("MaintenanceUtility: Threw an Exception listing facility problems.");
             System.err.println(se.getMessage());
         }
         return null;

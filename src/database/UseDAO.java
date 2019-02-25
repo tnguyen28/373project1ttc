@@ -32,6 +32,7 @@ public class UseDAO {
 
             while ( useRS.next() ) {
                 Inspection ins = new Inspection();
+                ins.setInspectionLocation(useRS.getString("inspection_location"));
                 ins.setInspectionDetail(useRS.getString("inspection_detail"));
                 ins.setFacilityID(fac.getFacilityID());
                 listOfInspec.add(ins);
@@ -56,13 +57,12 @@ public class UseDAO {
 
         boolean result = false;
         try {
-            //Insert the facility ID, room number, and start/end dates into use table
             Statement st = DBHelper.getConnection().createStatement();
-            String selectUseAssignments = "SELECT * FROM use WHERE facility_id = " + facUse.getFacilityID() +
+            String selectUse = "SELECT * FROM use WHERE facility_id = " + facUse.getFacilityID() +
                     " AND room_number IN (0, " + facUse.getRoomNumber() + ")";
 
-            ResultSet useRS = st.executeQuery(selectUseAssignments);
-            System.out.println("UseDAO: *************** Query " + selectUseAssignments + "\n");
+            ResultSet useRS = st.executeQuery(selectUse);
+            System.out.println("UseDAO: *************** Query " + selectUse + "\n");
 
             //check if dates in database overlap with input interval
             while (useRS.next()) {
@@ -169,7 +169,7 @@ public class UseDAO {
             List<FacilityUse> usageList = listActualUsage(fac);
             for (FacilityUse use : usageList) {
                 //if room number matches usage list and room is currently in use, set vacateQuery
-                if ((use.getRoomNumber() == roomNumber || use.getRoomNumber() == 0) & ((LocalDate.now().equals(use.getStartDate()) ||
+                if ((use.getRoomNumber() == roomNumber) & ((LocalDate.now().equals(use.getStartDate()) ||
                         LocalDate.now().isAfter(use.getStartDate())) & LocalDate.now().equals(use.getEndDate()) ||
                         LocalDate.now().isBefore(use.getEndDate()))) {
                     vacateQuery = "UPDATE use SET end_date = '" + Date.valueOf(LocalDate.now().minusDays(1)) +

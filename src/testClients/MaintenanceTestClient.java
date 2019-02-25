@@ -9,8 +9,7 @@ public class MaintenanceTestClient {
     public MaintenanceTestClient() throws Exception {
 
         maintenanceUtility ms = new maintenanceUtility();
-
-        //TEST FACILITIES
+        
         facility f1 = new facility();
         facility f2 = new facility();
         facility f3 = new facility();

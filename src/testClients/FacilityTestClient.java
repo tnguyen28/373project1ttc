@@ -7,7 +7,6 @@ import java.util.List;
 public class FacilityTestClient {
     public FacilityTestClient() throws Exception{
 
-        //TEST FACILITIES
         facility f1 = new facility();
         facility f2 = new facility();
         facility f3 = new facility();
@@ -45,7 +44,6 @@ public class FacilityTestClient {
         facilityDetail.setFacilityID(100);
         facilityDetail.setName("IoT Department");
         facilityDetail.setRoomNumber(3);
-        //facilityDetail.setPhoneNumber(1234567890);
         facility.setFacilityDetails(facilityDetail);
 
         FU.addNewFacility(facility);

@@ -17,7 +17,6 @@ public class FacilityDAO {
     public void removeFacility(int ID) {
 
         try {
-            //remove from use table
             Statement st = DBHelper.getConnection().createStatement();
             String removeFacilityUseQuery = "delete from use where facility_id = '" + ID + "'";
             st.execute(removeFacilityUseQuery);
@@ -125,11 +124,6 @@ public class FacilityDAO {
             addPst.setString(1, fac.getFacilityDetails().getName());
             addPst.setInt(2, fac.getFacilityDetails().getFacilityID());
             addPst.setInt(3, fac.getFacilityDetails().getRoomNumber());
-            if (fac.getFacilityDetails().getPhoneNumber() != 0) {
-                addPst.setInt(4, fac.getFacilityDetails().getPhoneNumber());
-            } else {
-                addPst.setNull(4, java.sql.Types.INTEGER);
-            }
             addPst.executeUpdate();
         } catch (SQLException ex) {
 
@@ -145,7 +139,7 @@ public class FacilityDAO {
                 }
 
             } catch (SQLException ex) {
-                System.err.println("FacilityDAO: Threw SQLException saving the facility object.");
+                System.err.println("FacilityDAO: Threw SQLException saving facility object.");
                 System.err.println(ex.getMessage());
             }
         }
