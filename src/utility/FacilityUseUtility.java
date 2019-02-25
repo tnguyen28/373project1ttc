@@ -49,8 +49,6 @@ public class FacilityUseUtility {
                         fac.getFacilityDetails().getRoomNumber() + " rooms at this facility.");
             } else {
                 for (FacilityUse use : usageList) {
-                    //if room number matches usage list (or usage list entry is for entire facility)
-                    //and room is currently in use, set vacateQuery
                     if (use.getRoomNumber() == 0 || (use.getRoomNumber() == roomNumber))  {
                         if ((LocalDate.now().equals(use.getStartDate())) || LocalDate.now().isAfter(use.getStartDate())) {
                             if ((LocalDate.now().equals(use.getEndDate())) || (LocalDate.now().isBefore(use.getEndDate()))) {
