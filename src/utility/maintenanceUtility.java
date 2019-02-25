@@ -53,14 +53,14 @@ public class maintenanceUtility {
         }
         return 0;
     }
-    
+
     public int calcDownTimeForFacility(facility facility){
         int downTime= 0;
         try {
             int completedMaintItems = maintenanceDAO.listMaintenance(facility).size();
             downTime = completedMaintItems * 3;
         } catch (Exception se) {
-            System.err.println("MaintenanceService: Threw an Exception calculating the down time for a facility.");
+            System.err.println("MaintenanceService: Threw an Exception calculating the down time.");
             System.err.println(se.getMessage());
         }
         return downTime;

@@ -74,7 +74,6 @@ public class MaintenanceTestClient {
             System.out.format("\n", row);
         }
 
-        //uses sample data to list facility problems, formatted as a table
         System.out.println("List all problems in facility");
         List<maintenance> fpList = ms.listFacilityProblems(f3);
         Object[][] problems = new Object[fpList.size() + 1][2];

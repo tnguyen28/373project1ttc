@@ -54,7 +54,7 @@ public class FacilityUseTestClient {
 
 
         //listing example inspection
-        System.out.println("Inspection for #" + f3.getFacilityID() + ": " + f3.getFacilityDetails().getName());
+        System.out.println("Inspection for Number" + f3.getFacilityID() + ": " + f3.getFacilityDetails().getName());
         for(Inspection inspection : FUU.listInspections(f3)){
             System.out.println("Detail: " + inspection.getInspectionDetail());
             System.out.println("Location: " + inspection.getInspectionLocation());
@@ -64,7 +64,7 @@ public class FacilityUseTestClient {
         System.out.println("Check if facility is being used during an interval");
         boolean intervalCheck = FUU.isInUseDuringInterval(fuse);
 
-        System.out.println("Facility #" + fuse.getFacilityID());
+        System.out.println("Facility Number" + fuse.getFacilityID());
         if(fuse.getRoomNumber() != 0){
             System.out.println("Room: " + fuse.getRoomNumber());
         }
@@ -81,7 +81,7 @@ public class FacilityUseTestClient {
         //check if in use
         boolean intervalCheck1 = FUU.isInUseDuringInterval(fuse);
 
-        System.out.println("Facility #" + fuse.getFacilityID());
+        System.out.println("Facility Number" + fuse.getFacilityID());
         System.out.println("Room: " + fuse.getRoomNumber());
 
         if(intervalCheck1){
@@ -93,12 +93,12 @@ public class FacilityUseTestClient {
         //list usage from database
         List<FacilityUse> usageList = FUU.listActualUsage(fuse);
         Object[][] usage = new Object[usageList.size() + 1][3];
-        usage[0] = new Object[] {"Room #", "Start Date", "End Date"};
+        usage[0] = new Object[] {"Room Number", "Start Date", "End Date"};
         for (int i = 1; i <= usageList.size(); i++) {
             usage[i] = new Object[] {usageList.get(i-1).getRoomNumber(), usageList.get(i-1).getStartDate().toString(),
                     usageList.get(i-1).getEndDate().toString()};
         }
-        System.out.println("Usage at Facility #" + fuse.getFacilityID());
+        System.out.println("Usage at Facility Number" + fuse.getFacilityID());
         for (Object[] row : usage) {
             System.out.format("\n", row);
 
@@ -112,19 +112,19 @@ public class FacilityUseTestClient {
         //list usage from database
         List<FacilityUse> usageList2 = FUU.listActualUsage(fuse);
         Object[][] usage2 = new Object[usageList2.size() + 1][3];
-        usage2[0] = new Object[] {"Room #", "Start Date", "End Date"};
+        usage2[0] = new Object[] {"Room Number", "Start Date", "End Date"};
         for (int i = 1; i <= usageList2.size(); i++) {
             usage2[i] = new Object[] {usageList2.get(i-1).getRoomNumber(), usageList2.get(i-1).getStartDate().toString(),
                     usageList2.get(i-1).getEndDate().toString()};
         }
-        System.out.println("Usage at Facility #" + fuse.getFacilityID());
+        System.out.println("Usage at Facility Number" + fuse.getFacilityID());
         for (Object[] row : usage2) {
             System.out.format("\n", row);
         }
 
         //calculate usage rate
         double rate = (int) FUU.calcUsageRate(f3) * 100;
-        System.out.println("Usage rate at facility #" + f3.getFacilityID() + ": "  + rate + "%");
+        System.out.println("Usage rate at facility Number" + f3.getFacilityID() + ": "  + rate + "%");
 
 
     }
