@@ -61,7 +61,7 @@ public class MaintenanceTestClient {
         }
         System.out.println("maintenance requests at Facility #" + f3.getFacilityID() + ":");
         for (Object[] row : requests) {
-            System.out.format("   %-29s%6s\n", row);
+            System.out.format("\n", row);
         }
         System.out.println("List maintenance completed at a facility");
         List<maintenance> maintenanceList = ms.listMaintenance(f3);
@@ -72,7 +72,7 @@ public class MaintenanceTestClient {
         }
         System.out.println("Maintenance completed at Facility #" + f3.getFacilityID() + ":");
         for (Object[] row : maintenanceTable) {
-            System.out.format("   %-30s%6s\n", row);
+            System.out.format("\n", row);
         }
 
         //uses sample data to list facility problems, formatted as a table
@@ -85,18 +85,17 @@ public class MaintenanceTestClient {
         }
         System.out.println("Problems at Facility #" + f3.getFacilityID() + ":");
         for (Object[] row : problems) {
-            System.out.format("   %-30s%6s\n", row);
+            System.out.format("\n", row);
         }
 
         System.out.println("Calculating the down time for a facility");
         int downTime = ms.calcDownTimeForFacility(f3);
-        System.out.println("Facility #" + f3.getFacilityID() + " was down for " + downTime + " days, ");
+        System.out.println("Facility #" + f3.getFacilityID() + " was down for " + downTime + " days. ");
 
         System.out.println("Calculating the problem rate for a facility");
         double problemRate = ms.calcProblemRateForFacility(f3) * 100;
-        System.out.print("\nThe problem rate at Facility #" + f3.getFacilityID() + " is ");
-        System.out.format("%.2f", problemRate);
-        System.out.print("%.");
+        System.out.print("\nThe problem rate at Facility #" + f3.getFacilityID() + " is %" + problemRate);
+
 
     }
 }

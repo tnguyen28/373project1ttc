@@ -100,13 +100,11 @@ public class FacilityUseTestClient {
         for (int i = 1; i <= usageList.size(); i++) {
             usage[i] = new Object[] {usageList.get(i-1).getRoomNumber(), usageList.get(i-1).getStartDate().toString(),
                     usageList.get(i-1).getEndDate().toString()};
-            if ((int) usage[i][0] == 0) {
-                usage[i][0] = "all";
-            }
         }
         System.out.println("Usage at Facility #" + fuse.getFacilityID());
         for (Object[] row : usage) {
-            System.out.format("\t%-10s%-15s%-15s\n", row);
+            System.out.format("\n", row);
+
         }
 
         //vacating a facility
@@ -127,7 +125,7 @@ public class FacilityUseTestClient {
         }
         System.out.println("Usage at Facility #" + fuse.getFacilityID());
         for (Object[] row : usage2) {
-            System.out.format("\t%-10s%-15s%-15s\n", row);
+            System.out.format("\n", row);
         }
 
         //calculate usage rate
