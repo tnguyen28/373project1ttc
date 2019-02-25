@@ -20,7 +20,6 @@ public class facilityDetail extends facility{
     }
 
 
-
     public void setName(String name){
         this.name = name;
     }

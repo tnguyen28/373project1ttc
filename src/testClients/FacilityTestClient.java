@@ -51,18 +51,24 @@ public class FacilityTestClient {
         FU.addNewFacility(facility);
         System.out.println("Facility " + facilityDetail.getName() + " has been added to the database.");
 
-
         System.out.println("Here are the details:");
 
         //initial display of facility
-        displayFacilityDetails(FU.getFacilityInformation(100));
+
+        System.out.println("FacilityID: " + facility.getFacilityID());
+        System.out.println("Facility Name: " + facilityDetail.getName());
+        System.out.println("Facility Room Number: " + facilityDetail.getRoomNumber());
+        System.out.println("Facility Phone Number: " + facilityDetail.getPhoneNumber());
 
         //adding phone number
+        System.out.println("Adding a phone number");
         FU.addFacilityDetail(100, 1234567890);
 
-        //updated display of facility
-        System.out.println("Facility has been updated: ");
-        displayFacilityDetails(FU.getFacilityInformation(100));
+        System.out.println("FacilityID: " + facility.getFacilityID());
+        System.out.println("Facility Name: " + facilityDetail.getName());
+        System.out.println("Facility Room Number: " + facilityDetail.getRoomNumber());
+        System.out.println("Facility Phone Number: " + facilityDetail.getPhoneNumber());
+
 
         //requesting available capacity
         int availableRooms = FU.requestAvailableCapacity(facility);
@@ -83,11 +89,4 @@ public class FacilityTestClient {
 
     }
 
-    public void displayFacilityDetails(facility fetchFacility){
-        facilityDetail fetchFacilityDetail = fetchFacility.getFacilityDetails();
-        System.out.println("FacilityID: " + fetchFacility.getFacilityID());
-        System.out.println("Facility Name: " + fetchFacilityDetail.getName());
-        System.out.println("Facility Room Number: " + fetchFacilityDetail.getRoomNumber());
-        System.out.println("Facility Phone Number: " + fetchFacilityDetail.getPhoneNumber());
-    }
 }
