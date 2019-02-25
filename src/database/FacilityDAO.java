@@ -156,7 +156,7 @@ public class FacilityDAO {
         try {
             Connection con = DBHelper.getConnection();
             PreparedStatement facPst = null;
-            //Get Facility
+            //Get facility
 
             String updateFacilityDetailQuery = "UPDATE facility_detail SET phone = ? WHERE facility_id = ?";
 

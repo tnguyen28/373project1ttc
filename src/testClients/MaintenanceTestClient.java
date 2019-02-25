@@ -77,11 +77,11 @@ public class MaintenanceTestClient {
 
         //uses sample data to list facility problems, formatted as a table
         System.out.println("List all problems that have affected a facility");
-        List<maintenance> facilityProblemsList = ms.listFacilityProblems(f3);
-        Object[][] problems = new Object[facilityProblemsList.size() + 1][2];
+        List<maintenance> fpList = ms.listFacilityProblems(f3);
+        Object[][] problems = new Object[fpList.size() + 1][2];
         problems[0] = new Object[] {"Facility Problem", "Cost"};
-        for (int i = 1; i <= facilityProblemsList.size(); i++) {
-            problems[i] = new Object[] {facilityProblemsList.get(i-1).getDetails(), facilityProblemsList.get(i-1).getCost()};
+        for (int i = 1; i <= fpList.size(); i++) {
+            problems[i] = new Object[] {fpList.get(i-1).getDetails(), fpList.get(i-1).getCost()};
         }
         System.out.println("Problems at Facility #" + f3.getFacilityID() + ":");
         for (Object[] row : problems) {

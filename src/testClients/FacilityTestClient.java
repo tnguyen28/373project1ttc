@@ -61,14 +61,13 @@ public class FacilityTestClient {
         System.out.println("Facility Phone Number: " + facilityDetail.getPhoneNumber());
 
         //adding phone number
-        System.out.println("Adding a phone number");
+        System.out.println("Trying to add a phone number");
         FU.addFacilityDetail(100, 1234567890);
 
         System.out.println("FacilityID: " + facility.getFacilityID());
         System.out.println("Facility Name: " + facilityDetail.getName());
         System.out.println("Facility Room Number: " + facilityDetail.getRoomNumber());
         System.out.println("Facility Phone Number: " + facilityDetail.getPhoneNumber());
-
 
         //requesting available capacity
         int availableRooms = FU.requestAvailableCapacity(facility);

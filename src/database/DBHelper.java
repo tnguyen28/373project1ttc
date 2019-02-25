@@ -1,6 +1,10 @@
 package database;
 
-import java.sql.*;
+import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DBHelper {
 
@@ -26,8 +30,8 @@ public class DBHelper {
         Connection connection = null;
 
         try {
-
             connection = DriverManager.getConnection("jdbc:postgresql://ec2-54-243-128-95.compute-1.amazonaws.com:5432/ds1ko1ppmmspp?sslmode=require", "mzgsdiegylyxge", "9cbe94a1aef3112c598427be7686541ad8bfd27909cb85633d318f00c8a3fbcb");
+
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery("SELECT VERSION()");
 
