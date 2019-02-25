@@ -64,14 +64,12 @@ public class UseDAO {
             ResultSet useRS = st.executeQuery(selectUse);
             System.out.println("UseDAO: *************** Query " + selectUse + "\n");
 
-            //check if dates in database overlap with input interval
             while (useRS.next()) {
                 LocalDate start = useRS.getDate("start_date").toLocalDate();
                 LocalDate end = useRS.getDate("end_date").toLocalDate();
                 if (facUse.getStartDate().isBefore(end) && (start.isBefore(facUse.getEndDate()) ||
                         start.equals(facUse.getEndDate()))) {
                     result = true;
-                    break;
                 }
             }
 
@@ -159,27 +157,24 @@ public class UseDAO {
     }
 
 
-    public void vacateFacility(facility fac, int roomNumber) {
+    public void vacateFacility(facility facility, int roomNumber) {
 
         try {
 
             Statement st = DBHelper.getConnection().createStatement();
-            String vacateQuery = "";
+            String vacate = "";
 
-            List<FacilityUse> usageList = listActualUsage(fac);
+            List<FacilityUse> usageList = listActualUsage(facility);
             for (FacilityUse use : usageList) {
-                //if room number matches usage list and room is currently in use, set vacateQuery
-                if ((use.getRoomNumber() == roomNumber) & ((LocalDate.now().equals(use.getStartDate()) ||
-                        LocalDate.now().isAfter(use.getStartDate())) & LocalDate.now().equals(use.getEndDate()) ||
-                        LocalDate.now().isBefore(use.getEndDate()))) {
-                    vacateQuery = "UPDATE use SET end_date = '" + Date.valueOf(LocalDate.now().minusDays(1)) +
-                            "' WHERE facility_id = " + fac.getFacilityID() + "AND room_number = " + roomNumber +
+                if ((use.getRoomNumber() == roomNumber) & ((LocalDate.now().isAfter(use.getStartDate())) & LocalDate.now().isBefore(use.getEndDate()))) {
+                    vacate = "UPDATE use SET end_date = '" + Date.valueOf(use.getEndDate().plusDays(1)) +
+                            "' WHERE facility_id = " + facility.getFacilityID() + "AND room_number = " + roomNumber +
                             "AND start_date = '" + Date.valueOf(use.getStartDate()) + "'";
                 }
             }
 
-            st.execute(vacateQuery);
-            System.out.println("UseDAO: *************** Query " + vacateQuery);
+            st.execute(vacate);
+            System.out.println("UseDAO: *************** Query " + vacate);
 
         }
         catch (SQLException se){

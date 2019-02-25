@@ -9,7 +9,7 @@ public class MaintenanceTestClient {
     public MaintenanceTestClient() throws Exception {
 
         maintenanceUtility ms = new maintenanceUtility();
-        
+
         facility f1 = new facility();
         facility f2 = new facility();
         facility f3 = new facility();
@@ -75,10 +75,10 @@ public class MaintenanceTestClient {
         }
 
         //uses sample data to list facility problems, formatted as a table
-        System.out.println("List all problems that have affected a facility");
+        System.out.println("List all problems in facility");
         List<maintenance> fpList = ms.listFacilityProblems(f3);
         Object[][] problems = new Object[fpList.size() + 1][2];
-        problems[0] = new Object[] {"Facility Problem", "Cost"};
+        problems[0] = new Object[] {"Problem Detail", "Cost"};
         for (int i = 1; i <= fpList.size(); i++) {
             problems[i] = new Object[] {fpList.get(i-1).getDetails(), fpList.get(i-1).getCost()};
         }
@@ -86,14 +86,13 @@ public class MaintenanceTestClient {
         for (Object[] row : problems) {
             System.out.format("\n", row);
         }
+        double problemRate = ms.calcProblemRateForFacility(f3) * 100;
+        System.out.print("\nThe problem rate at Facility #" + f3.getFacilityID() + " is %" + problemRate);
 
-        System.out.println("Calculating the down time for a facility");
         int downTime = ms.calcDownTimeForFacility(f3);
         System.out.println("Facility #" + f3.getFacilityID() + " was down for " + downTime + " days. ");
 
-        System.out.println("Calculating the problem rate for a facility");
-        double problemRate = ms.calcProblemRateForFacility(f3) * 100;
-        System.out.print("\nThe problem rate at Facility #" + f3.getFacilityID() + " is %" + problemRate);
+
 
 
     }

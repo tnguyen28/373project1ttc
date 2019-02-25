@@ -28,8 +28,6 @@ public class FacilityUseUtility {
     public void assignFacilityToUse(FacilityUse fu){
         if(fu.getRoomNumber() > fu.getFacilityDetails().getRoomNumber()){
             System.out.println("There are only " + fu.getFacilityDetails().getRoomNumber() + " number of rooms available.");
-        } else if(fu.getStartDate().isAfter(fu.getEndDate())){
-            System.out.println("End date cannot be before start date.");
         } else if(isInUseDuringInterval(fu)){
             System.out.println("This room is already being used");
         } else {
@@ -45,17 +43,16 @@ public class FacilityUseUtility {
         try {
             List<FacilityUse> usageList = listActualUsage(fac);
             if (roomNumber > fac.getFacilityDetails().getRoomNumber()) {
-                System.out.println("Invalid room number. There are only " +
-                        fac.getFacilityDetails().getRoomNumber() + " rooms at this facility.");
+                System.out.println("There are only " + fac.getFacilityDetails().getRoomNumber() + " rooms at this facility.");
             } else {
                 for (FacilityUse use : usageList) {
-                    if (use.getRoomNumber() == 0 || (use.getRoomNumber() == roomNumber))  {
+                    if ((use.getRoomNumber() == roomNumber))  {
                         if ((LocalDate.now().equals(use.getStartDate())) || LocalDate.now().isAfter(use.getStartDate())) {
                             if ((LocalDate.now().equals(use.getEndDate())) || (LocalDate.now().isBefore(use.getEndDate()))) {
                                 useDAO.vacateFacility(fac, roomNumber);
                             }
                         } else {
-                            System.out.println("This room is not currently in use. Unable to vacate at this time.");
+                            System.out.println("Cannot vacate");
                         }
                     }
                 }

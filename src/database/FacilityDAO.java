@@ -21,7 +21,7 @@ public class FacilityDAO {
             String removeFacilityUseQuery = "delete from use where facility_id = '" + ID + "'";
             st.execute(removeFacilityUseQuery);
 
-            System.out.println("FacilityDAO: *************** Query " + removeFacilityUseQuery + "\n");
+            System.out.println("FacilityDAO: *************** Query " + removeFacilityUseQuery);
             //close to manage resources
             st.close();
         }
@@ -37,7 +37,7 @@ public class FacilityDAO {
             String removeFacilityDetailQuery = "delete from facility_detail where facility_id = '" + ID + "'";
             st.execute(removeFacilityDetailQuery);
 
-            System.out.println("FacilityDAO: *************** Query " + removeFacilityDetailQuery + "\n");
+            System.out.println("FacilityDAO: *************** Query " + removeFacilityDetailQuery);
             //close to manage resources
             st.close();
         }
@@ -53,7 +53,7 @@ public class FacilityDAO {
             String removeFacilityQuery = "delete from facility where id = '" + ID + "'";
             st.execute(removeFacilityQuery);
 
-            System.out.println("FacilityDAO: *************** Query " + removeFacilityQuery + "\n");
+            System.out.println("FacilityDAO: *************** Query " + removeFacilityQuery);
             //close to manage resources
             st.close();
         }
@@ -74,11 +74,11 @@ public class FacilityDAO {
 
             //Get details about facility
             Statement st = DBHelper.getConnection().createStatement();
-            String selectDetailQuery = "SELECT name,facility_id,number_of_rooms,phone FROM facility_detail WHERE facility_id = '" + ID + "'";
+            String selectDetailQuery = "SELECT name,facility_id, number_of_rooms, phone_number FROM facility_detail WHERE facility_id = '" + ID + "'";
             ResultSet dRS = st.executeQuery(selectDetailQuery);
             facilityDetail detail = new facilityDetail();
 
-            System.out.println("FacilityDAO: *************** Query " + selectDetailQuery + "\n");
+            System.out.println("FacilityDAO: *************** Query " + selectDetailQuery);
 
             while ( dRS.next() ) {
                 detail.setName(dRS.getString("name"));
@@ -119,7 +119,7 @@ public class FacilityDAO {
             facPst.executeUpdate();
 
             //Insert the facility_detail object
-            String addStm = "INSERT INTO facility_detail(name, facility_id, number_of_rooms, phone) VALUES(?, ?, ?, ?)";
+            String addStm = "INSERT INTO facility_detail(name, facility_id, number_of_rooms, phone_number) VALUES(?, ?, ?, ?)";
             addPst = con.prepareStatement(addStm);
             addPst.setString(1, fac.getFacilityDetails().getName());
             addPst.setInt(2, fac.getFacilityDetails().getFacilityID());
@@ -152,14 +152,14 @@ public class FacilityDAO {
             PreparedStatement facPst = null;
             //Get facility
 
-            String updateFacilityDetailQuery = "UPDATE facility_detail SET phone = ? WHERE facility_id = ?";
+            String updateFacilityDetailQuery = "UPDATE facility_detail SET phone_number = ? WHERE facility_id = ?";
 
             facPst = con.prepareStatement(updateFacilityDetailQuery);
             facPst.setInt(1, phoneNumber);
             facPst.setInt(2, ID);
             facPst.executeUpdate();
 
-            System.out.println("FacilityDAO: *************** Query " + updateFacilityDetailQuery + "\n");
+            System.out.println("FacilityDAO: *************** Query " + updateFacilityDetailQuery);
 
             //close to manage resources
             facPst.close();
@@ -167,7 +167,7 @@ public class FacilityDAO {
 
         }
         catch (SQLException se) {
-            System.err.println("FacilityDAO: Threw SQLException updating the phone number in Facility Detail table.");
+            System.err.println("FacilityDAO: Threw SQLException updating the phone number.");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
@@ -181,10 +181,10 @@ public class FacilityDAO {
         try {
 
             Statement st = DBHelper.getConnection().createStatement();
-            String getAllFacilitiesQuery = "SELECT * FROM facility";
+            String facilitiesQuery = "SELECT * FROM facility";
 
-            ResultSet facRS = st.executeQuery(getAllFacilitiesQuery);
-            System.out.println("FacilityDAO: *************** Query " + getAllFacilitiesQuery + "\n");
+            ResultSet facRS = st.executeQuery(facilitiesQuery);
+            System.out.println("FacilityDAO: *************** Query " + facilitiesQuery);
 
             facility f1 = new facility();
             while ( facRS.next() ) {
