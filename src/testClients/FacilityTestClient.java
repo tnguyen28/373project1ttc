@@ -1,5 +1,5 @@
 package testClients;
-import facility.*;
+import Domain.facility.*;
 import utility.*;
 import java.util.List;
 
@@ -7,12 +7,12 @@ import java.util.List;
 public class FacilityTestClient {
     public FacilityTestClient() throws Exception{
 
-        facility f1 = new facility();
-        facility f2 = new facility();
-        facility f3 = new facility();
-        facilityDetail fd1 = new facilityDetail();
-        facilityDetail fd2 = new facilityDetail();
-        facilityDetail fd3 = new facilityDetail();
+        Facility f1 = new Facility();
+        Facility f2 = new Facility();
+        Facility f3 = new Facility();
+        FacilityDetail fd1 = new FacilityDetail();
+        FacilityDetail fd2 = new FacilityDetail();
+        FacilityDetail fd3 = new FacilityDetail();
 
         f1.setFacilityID(1);
         f2.setFacilityID(2);
@@ -38,20 +38,20 @@ public class FacilityTestClient {
         //SPECIFIC FACILITY EXAMPLE
         FacilityUtility FU = new FacilityUtility();
 
-        facility facility = new facility();
+        Facility facility = new Facility();
         facility.setFacilityID(100);
-        facilityDetail facilityDetail = new facilityDetail();
+        FacilityDetail facilityDetail = new FacilityDetail();
         facilityDetail.setFacilityID(100);
         facilityDetail.setName("IoT Department");
         facilityDetail.setRoomNumber(3);
         facility.setFacilityDetails(facilityDetail);
 
         FU.addNewFacility(facility);
-        System.out.println("Facility " + facilityDetail.getName() + " has been added to the database.");
+        System.out.println("Facility " + facilityDetail.getName() + " has been added to the DataAccess.database.");
 
         System.out.println("Here are the details:");
 
-        //initial display of facility
+        //initial display of Domain.facility
 
         System.out.println("FacilityID: " + facility.getFacilityID());
         System.out.println("Facility Name: " + facilityDetail.getName());
@@ -71,15 +71,15 @@ public class FacilityTestClient {
         int availableRooms = FU.requestAvailableCapacity(facility);
         System.out.println("There are " + availableRooms + " rooms available in " + facility.getFacilityDetails().getName());
 
-        //removing facility
+        //removing Domain.facility
         FU.removeFacility(100);
         System.out.println("Facility #100 has been removed.");
 
         //show list of all facilities
         System.out.println("Here is the list of facilities");
-        List<facility> facilityList = FU.listFacilities();
-        for(facility f : facilityList){
-            facilityDetail fd = f.getFacilityDetails();
+        List<Facility> facilityList = FU.listFacilities();
+        for(Facility f : facilityList){
+            FacilityDetail fd = f.getFacilityDetails();
             System.out.println(fd.getName());
 
         }

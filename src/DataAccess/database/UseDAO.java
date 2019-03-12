@@ -1,4 +1,4 @@
-package database;
+package DataAccess.database;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -9,15 +9,15 @@ import java.sql.Statement;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import facility.*;
-import use.*;
+import Domain.facility.Facility;
+import Domain.Inspection.Inspection;
+import Domain.use.*;
 public class UseDAO {
 
     public UseDAO() {}
 
 
-    public List<Inspection> listInspections(facility fac) {
+    public List<Inspection> listInspections(Facility fac) {
 
         List<Inspection> listOfInspec = new ArrayList<Inspection>();
 
@@ -79,7 +79,7 @@ public class UseDAO {
 
         }
         catch (SQLException se) {
-            System.err.println("UseDAO: Threw a SQLException checking if facility is in use during an interval.");
+            System.err.println("UseDAO: Threw a SQLException checking if Domain.facility is in Domain.use during an interval.");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
@@ -109,15 +109,15 @@ public class UseDAO {
             con.close();
         }
         catch (SQLException se) {
-            System.err.println("UseDAO: Threw a SQLException assigning a facility "
-                    + "to use in the use table.");
+            System.err.println("UseDAO: Threw a SQLException assigning a Domain.facility "
+                    + "to Domain.use in the Domain.use table.");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
 
     }
 
-    public List<FacilityUse> listActualUsage(facility fac) {
+    public List<FacilityUse> listActualUsage(Facility fac) {
 
         List<FacilityUse> listOfUsage = new ArrayList<FacilityUse>();
 
@@ -156,7 +156,7 @@ public class UseDAO {
     }
 
 
-    public void vacateFacility(facility facility, int roomNumber) {
+    public void vacateFacility(Facility facility, int roomNumber) {
 
         try {
 
@@ -177,14 +177,14 @@ public class UseDAO {
 
         }
         catch (SQLException se){
-            System.err.println("UseDAO: Threw a SQLException vacating the facility.");
+            System.err.println("UseDAO: Threw a SQLException vacating the Domain.facility.");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
 
     }
 
-    public LocalDate getFacilityStartDate(facility fac) {
+    public LocalDate getFacilityStartDate(Facility fac) {
 
         LocalDate facilityStartDate = null;
         try {
@@ -206,7 +206,7 @@ public class UseDAO {
 
         }
         catch (SQLException se) {
-            System.err.println("UseDAO: Threw a SQLException retrieving facility start date.");
+            System.err.println("UseDAO: Threw a SQLException retrieving Domain.facility start date.");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }

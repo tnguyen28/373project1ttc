@@ -1,13 +1,12 @@
-package use;
+package Domain.Inspection;
+import Domain.facility.Facility;
 
-public class Inspection {
-    private int facilityID;
+public class Inspection extends Facility {
+
     private String inspectionLocation;
     private String inspectionDetail;
 
-    public int getFacilityID(){
-        return facilityID;
-    }
+
     public String getInspectionLocation(){
 
         return inspectionLocation;
@@ -16,9 +15,7 @@ public class Inspection {
         return inspectionDetail;
     }
 
-    public void setFacilityID(int facilityID){
-        this.facilityID = facilityID;
-    }
+
     public void setInspectionLocation(String inspectionLocation){
         this.inspectionLocation = inspectionLocation;
     }

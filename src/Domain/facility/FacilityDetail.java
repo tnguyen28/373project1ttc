@@ -1,11 +1,11 @@
-package facility;
+package Domain.facility;
 
-public class facilityDetail extends facility{
+public class FacilityDetail extends Facility{
     private String name;
     private int roomNumber;
     private int phoneNumber;
 
-    public facilityDetail(){
+    public FacilityDetail(){
 
     }
 

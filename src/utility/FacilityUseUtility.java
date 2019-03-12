@@ -1,9 +1,10 @@
 package utility;
-import facility.*;
-import use.*;
+import Domain.facility.Facility;
+import Domain.Inspection.Inspection;
+import Domain.use.*;
 import java.util.List;
 import java.time.LocalDate;
-import database.*;
+import DataAccess.database.*;
 
 public class FacilityUseUtility {
 
@@ -18,7 +19,7 @@ public class FacilityUseUtility {
             try {
                 return useDAO.isInUseDuringInterval(fu);
             } catch (Exception se) {
-                System.err.println("FacilityUseUtility: Threw an Exception checking if facility is in use during interval.");
+                System.err.println("FacilityUseUtility: Threw an Exception checking if Domain.facility is in Domain.use during interval.");
                 System.err.println(se.getMessage());
             }
         }
@@ -34,16 +35,16 @@ public class FacilityUseUtility {
             try {
                 useDAO.assignFacilityToUse(fu);
             } catch (Exception se) {
-                System.err.println("FacilityUseUtility: Threw an Exception assigning a facility to use.");
+                System.err.println("FacilityUseUtility: Threw an Exception assigning a Domain.facility to Domain.use.");
                 System.err.println(se.getMessage());
             }
         }
     }
-    public void vacateFacility(facility fac, int roomNumber){
+    public void vacateFacility(Facility fac, int roomNumber){
         try {
             List<FacilityUse> usageList = listActualUsage(fac);
             if (roomNumber > fac.getFacilityDetails().getRoomNumber()) {
-                System.out.println("There are only " + fac.getFacilityDetails().getRoomNumber() + " rooms at this facility.");
+                System.out.println("There are only " + fac.getFacilityDetails().getRoomNumber() + " rooms at this Domain.facility.");
             } else {
                 for (FacilityUse use : usageList) {
                     if ((use.getRoomNumber() == roomNumber))  {
@@ -59,12 +60,12 @@ public class FacilityUseUtility {
             }
         }
         catch (Exception se) {
-            System.err.println("FacilityUseUtility: Threw an Exception vacating a facility.");
+            System.err.println("FacilityUseUtility: Threw an Exception vacating a Domain.facility.");
             System.err.println(se.getMessage());
         }
     }
 
-    public List<Inspection> listInspections(facility facility){
+    public List<Inspection> listInspections(Facility facility){
         try {
             return useDAO.listInspections(facility);
         } catch (Exception se) {
@@ -73,7 +74,7 @@ public class FacilityUseUtility {
         }
         return null;
     }
-    public List<FacilityUse> listActualUsage(facility facility){
+    public List<FacilityUse> listActualUsage(Facility facility){
         try {
             return useDAO.listActualUsage(facility);
         } catch (Exception se) {
@@ -82,7 +83,7 @@ public class FacilityUseUtility {
         }
         return null;
     }
-    public double calcUsageRate(facility facility){
+    public double calcUsageRate(Facility facility){
         try {
             FacilityUtility ur = new FacilityUtility();
             int usedRooms = facility.getFacilityDetails().getRoomNumber() - ur.requestAvailableCapacity(facility);
@@ -96,11 +97,11 @@ public class FacilityUseUtility {
 
         return 0.00;
     }
-    public LocalDate getFacilityStartDate(facility facility){
+    public LocalDate getFacilityStartDate(Facility facility){
         try {
             return useDAO.getFacilityStartDate(facility);
         } catch (Exception se) {
-            System.err.println("FacilityUseUtility: Threw an Exception retrieving the facility start date.");
+            System.err.println("FacilityUseUtility: Threw an Exception retrieving the Domain.facility start date.");
             System.err.println(se.getMessage());
         }
         return null;

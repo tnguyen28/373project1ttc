@@ -1,8 +1,9 @@
 package testClients;
 
-import facility.*;
+import Domain.Inspection.Inspection;
+import Domain.facility.*;
 import utility.*;
-import use.*;
+import Domain.use.*;
 import java.util.List;
 import java.time.LocalDate;
 
@@ -11,15 +12,15 @@ public class FacilityUseTestClient {
         FacilityUtility FU = new FacilityUtility();
         FacilityUseUtility FUU = new FacilityUseUtility();
 
-        facility f1 = new facility();
-        facility f2 = new facility();
-        facility f3 = new facility();
+        Facility f1 = new Facility();
+        Facility f2 = new Facility();
+        Facility f3 = new Facility();
         FacilityUse fuse = new FacilityUse();
 
-        facilityDetail fd1 = new facilityDetail();
-        facilityDetail fd2 = new facilityDetail();
-        facilityDetail fd3 = new facilityDetail();
-        facilityDetail fufd = new facilityDetail();
+        FacilityDetail fd1 = new FacilityDetail();
+        FacilityDetail fd2 = new FacilityDetail();
+        FacilityDetail fd3 = new FacilityDetail();
+        FacilityDetail fufd = new FacilityDetail();
 
         f1.setFacilityID(1);
         f2.setFacilityID(2);
@@ -61,7 +62,7 @@ public class FacilityUseTestClient {
         }
 
         //check if it is being used
-        System.out.println("Check if facility is being used during an interval");
+        System.out.println("Check if Domain.facility is being used during an interval");
         boolean intervalCheck = FUU.isInUseDuringInterval(fuse);
 
         System.out.println("Facility Number" + fuse.getFacilityID());
@@ -74,11 +75,11 @@ public class FacilityUseTestClient {
             System.out.println("is not being used ");
         }
 
-        //assign facility to use
+        //assign Domain.facility to Domain.use
         FUU.assignFacilityToUse(fuse);
         System.out.println("Facility assigned");
 
-        //check if in use
+        //check if in Domain.use
         boolean intervalCheck1 = FUU.isInUseDuringInterval(fuse);
 
         System.out.println("Facility Number" + fuse.getFacilityID());
@@ -90,7 +91,7 @@ public class FacilityUseTestClient {
             System.out.println("is not being used.");
         }
 
-        //list usage from database
+        //list usage from DataAccess.database
         List<FacilityUse> usageList = FUU.listActualUsage(fuse);
         Object[][] usage = new Object[usageList.size() + 1][3];
         usage[0] = new Object[] {"Room Number", "Start Date", "End Date"};
@@ -104,12 +105,12 @@ public class FacilityUseTestClient {
 
         }
 
-        //vacating a facility
-        System.out.println("Vacating a facility");
+        //vacating a Domain.facility
+        System.out.println("Vacating a Domain.facility");
         FUU.vacateFacility(fuse, 1);
         System.out.println("Facility vacated");
 
-        //list usage from database
+        //list usage from DataAccess.database
         List<FacilityUse> usageList2 = FUU.listActualUsage(fuse);
         Object[][] usage2 = new Object[usageList2.size() + 1][3];
         usage2[0] = new Object[] {"Room Number", "Start Date", "End Date"};
@@ -124,7 +125,7 @@ public class FacilityUseTestClient {
 
         //calculate usage rate
         double rate = (int) FUU.calcUsageRate(f3) * 100;
-        System.out.println("Usage rate at facility Number" + f3.getFacilityID() + ": "  + rate + "%");
+        System.out.println("Usage rate at Domain.facility Number" + f3.getFacilityID() + ": "  + rate + "%");
 
 
     }

@@ -1,4 +1,4 @@
-package database;
+package DataAccess.database;
 
 import java.sql.DriverManager;
 import java.sql.Connection;
@@ -48,7 +48,7 @@ public class DBHelper {
         }
 
         if (connection != null) {
-            System.out.println("DBHelper: You have a database connection!");
+            System.out.println("DBHelper: You have a DataAccess.database connection!");
         } else {
             System.out.println("DBHelper: Failed to make connection!");
         }

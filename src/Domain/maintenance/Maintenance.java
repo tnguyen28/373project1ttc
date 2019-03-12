@@ -1,11 +1,11 @@
-package maintenance;
-import facility.facility;
+package Domain.maintenance;
 
-public class maintenance extends facility {
+public class Maintenance{
     private String details;
     private int cost;
 
-    public maintenance(){
+
+    public Maintenance(){
 
     }
 

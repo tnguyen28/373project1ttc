@@ -1,23 +1,22 @@
-package database;
+package DataAccess.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import facility.*;
-import maintenance.*;
+import Domain.maintenance.*;
+import Domain.facility.*;
 
 public class MaintenanceDAO {
 
     public MaintenanceDAO() {}
 
-    public maintenance makeFacilityMaintRequest(facility facility, String maintenanceDetails, int cost) {
+    public Maintenance makeFacilityMaintRequest(Facility facility, String maintenanceDetails, int cost) {
 
         try {
 
-            maintenance maint = new maintenance();
+            Maintenance maint = new Maintenance();
             maint.setDetails(maintenanceDetails);
             maint.setCost(cost);
             maint.setFacilityID(facility.getFacilityID());
@@ -35,7 +34,7 @@ public class MaintenanceDAO {
 
         }
         catch (SQLException se) {
-            System.err.println("MaintenanceDAO: Threw a SQLException making a maintenance request.");
+            System.err.println("MaintenanceDAO: Threw a SQLException making a Domain.maintenance request.");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
@@ -44,7 +43,7 @@ public class MaintenanceDAO {
 
     }
 
-    public void scheduleMaintenance(maintenance maintRequest) {
+    public void scheduleMaintenance(Maintenance maintRequest) {
 
         try {
 
@@ -60,7 +59,7 @@ public class MaintenanceDAO {
 
         }
         catch (SQLException se) {
-            System.err.println("MaintenanceDAO: Threw a SQLException adding a maintenance ");
+            System.err.println("MaintenanceDAO: Threw a SQLException adding a Domain.maintenance ");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
@@ -78,14 +77,14 @@ public class MaintenanceDAO {
 
         }
         catch (SQLException se) {
-            System.err.println("MaintenanceDAO: Threw a SQLException removing scheduled maintenance");
+            System.err.println("MaintenanceDAO: Threw a SQLException removing scheduled Domain.maintenance");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
 
     }
 
-    public int calcMaintenanceCostForFacility(facility facility) {
+    public int calcMaintenanceCostForFacility(Facility facility) {
         int total= 0;
 
         try {
@@ -116,9 +115,9 @@ public class MaintenanceDAO {
         return 0;
     }
 
-    public List<maintenance> listMaintRequests(facility facility) {
+    public List<Maintenance> listMaintRequests(Facility facility) {
 
-        List<maintenance> listOfMaintRequests = new ArrayList<maintenance>();
+        List<Maintenance> listOfMaintRequests = new ArrayList<Maintenance>();
 
         try {
 
@@ -130,7 +129,7 @@ public class MaintenanceDAO {
             System.out.println("MaintenanceDAO: *************** Query " + listMaintRequestsQuery);
 
             while ( maintRS.next() ) {
-                maintenance maintenanceRequest = new maintenance();
+                Maintenance maintenanceRequest = new Maintenance();
                 maintenanceRequest.setDetails(maintRS.getString("details"));
                 maintenanceRequest.setCost(maintRS.getInt("cost"));
                 maintenanceRequest.setFacilityID(facility.getFacilityID());
@@ -143,7 +142,7 @@ public class MaintenanceDAO {
 
         }
         catch (SQLException se) {
-            System.err.println("MaintenanceDAO: Threw a SQLException retreiving list of maintenance ");
+            System.err.println("MaintenanceDAO: Threw a SQLException retreiving list of Domain.maintenance ");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
@@ -152,9 +151,9 @@ public class MaintenanceDAO {
 
     }
 
-    public List<maintenance> listMaintenance(facility fac) {
+    public List<Maintenance> listMaintenance(Facility fac) {
 
-        List<maintenance> listOfCompletedMaintenance = new ArrayList<maintenance>();
+        List<Maintenance> listOfCompletedMaintenance = new ArrayList<Maintenance>();
 
         try {
 
@@ -166,7 +165,7 @@ public class MaintenanceDAO {
             System.out.println("UseDAO: *************** Query " + listMaintenanceQuery);
 
             while ( maintRS.next() ) {
-                maintenance maintenance = new maintenance();
+                Maintenance maintenance = new Maintenance();
                 maintenance.setDetails(maintRS.getString("details"));
                 maintenance.setCost(maintRS.getInt("cost"));
                 maintenance.setFacilityID(fac.getFacilityID());
@@ -179,7 +178,7 @@ public class MaintenanceDAO {
 
         }
         catch (SQLException se) {
-            System.err.println("UseDAO: Threw a SQLException retrieving list of maintenance ");
+            System.err.println("UseDAO: Threw a SQLException retrieving list of Domain.maintenance ");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }

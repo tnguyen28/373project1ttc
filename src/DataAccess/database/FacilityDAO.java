@@ -1,4 +1,4 @@
-package database;
+package DataAccess.database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import facility.*;
+import Domain.facility.*;
 
 public class FacilityDAO {
 
@@ -27,13 +27,13 @@ public class FacilityDAO {
             st.close();
         }
         catch (SQLException se) {
-            System.err.println("FacilityDAO: Threw SQLException removing the facility");
+            System.err.println("FacilityDAO: Threw SQLException removing the Domain.facility");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
 
         try {
-            //remove from facility table
+            //remove from Domain.facility table
             Statement st = DBHelper.getConnection().createStatement();
             String removeFacilityQuery = "delete from facility where id = '" + ID + "'";
             st.execute(removeFacilityQuery);
@@ -43,7 +43,7 @@ public class FacilityDAO {
             st.close();
         }
         catch (SQLException se) {
-            System.err.println("FacilityDAO: Threw SQLException removing the facility ");
+            System.err.println("FacilityDAO: Threw SQLException removing the Domain.facility ");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
@@ -57,25 +57,25 @@ public class FacilityDAO {
             st.close();
         }
         catch (SQLException se) {
-            System.err.println("FacilityDAO: Threw SQLException removing the facility");
+            System.err.println("FacilityDAO: Threw SQLException removing the Domain.facility");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
 
     }
 
-    public facility getFacilityInformation(int ID) {
+    public Facility getFacilityInformation(int ID) {
 
         try {
 
-            facility f1 = new facility();
+            Facility f1 = new Facility();
             f1.setFacilityID(ID);
 
-            //Get details about facility
+            //Get details about Domain.facility
             Statement st = DBHelper.getConnection().createStatement();
             String selectDetailQuery = "SELECT name,facility_id, number_of_rooms, phone_number FROM facility_detail WHERE facility_id = '" + ID + "'";
             ResultSet detailRS = st.executeQuery(selectDetailQuery);
-            facilityDetail detail = new facilityDetail();
+            FacilityDetail detail = new FacilityDetail();
 
             System.out.println("FacilityDAO: *************** Query " + selectDetailQuery);
 
@@ -97,7 +97,7 @@ public class FacilityDAO {
         }
 
         catch (SQLException se) {
-            System.err.println("FacilityDAO: Threw SQLException retrieving the facility");
+            System.err.println("FacilityDAO: Threw SQLException retrieving the Domain.facility");
             System.err.println(se.getMessage());
             se.printStackTrace();
         }
@@ -105,13 +105,13 @@ public class FacilityDAO {
         return null;
     }
 
-    public void addNewFacility(facility fac) {
+    public void addNewFacility(Facility fac) {
         Connection con = DBHelper.getConnection();
         PreparedStatement facPst = null;
         PreparedStatement addPst = null;
 
         try {
-            //Insert the facility object
+            //Insert the Domain.facility object
             String facStm = "INSERT INTO facility(id) VALUES(?)";
             facPst = con.prepareStatement(facStm);
             facPst.setInt(1, fac.getFacilityID());
@@ -138,7 +138,7 @@ public class FacilityDAO {
                 }
 
             } catch (SQLException ex) {
-                System.err.println("FacilityDAO: Threw SQLException saving facility");
+                System.err.println("FacilityDAO: Threw SQLException saving Domain.facility");
                 System.err.println(ex.getMessage());
             }
         }
@@ -149,7 +149,7 @@ public class FacilityDAO {
         try {
             Connection con = DBHelper.getConnection();
             PreparedStatement facPst = null;
-            //Get facility
+            //Get Domain.facility
 
             String updateFacilityDetailQuery = "UPDATE facility_detail SET phone_number = ? WHERE facility_id = ?";
 
@@ -173,9 +173,9 @@ public class FacilityDAO {
 
     }
 
-    public List<facility> listFacilities() {
+    public List<Facility> listFacilities() {
 
-        List<facility> listOfFac = new ArrayList<facility>();
+        List<Facility> listOfFac = new ArrayList<Facility>();
 
         try {
 
@@ -185,7 +185,7 @@ public class FacilityDAO {
             ResultSet facRS = st.executeQuery(facilitiesQuery);
             System.out.println("FacilityDAO: *************** Query " + facilitiesQuery);
 
-            facility f1 = new facility();
+            Facility f1 = new Facility();
             while ( facRS.next() ) {
                 f1.setFacilityID(facRS.getInt("id"));
                 listOfFac.add(getFacilityInformation(f1.getFacilityID()));

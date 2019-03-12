@@ -1,30 +1,30 @@
 package utility;
-import facility.*;
-import use.*;
+import Domain.use.*;
+import Domain.facility.Facility;
 import java.util.List;
 import java.time.LocalDate;
-import database.*;
+import DataAccess.database.*;
 
 public class FacilityUtility {
 
     private FacilityDAO facDAO = new FacilityDAO();
     private UseDAO useDAO = new UseDAO();
 
-    public void addNewFacility(facility facility){
-        //add to database
+    public void addNewFacility(Facility facility){
+        //add to DataAccess.database
         try {
             facDAO.addNewFacility(facility);
         } catch (Exception se) {
-            System.err.println("FacilityService: Threw an Exception adding new facility.");
+            System.err.println("FacilityService: Threw an Exception adding new Domain.facility.");
             System.err.println(se.getMessage());
         }
     }
     public void removeFacility(int id){
-        //delete from database
+        //delete from DataAccess.database
         try {
             facDAO.removeFacility(id);
         } catch (Exception se) {
-            System.err.println("FacilityService: Threw an Exception removing facility.");
+            System.err.println("FacilityService: Threw an Exception removing Domain.facility.");
             System.err.println(se.getMessage());
         }
     }
@@ -38,20 +38,20 @@ public class FacilityUtility {
         }
     }
 
-    public facility getFacilityInformation(int facilityID){
+    public Facility getFacilityInformation(int facilityID){
         //fetch information
 
         try {
-            facility fac = facDAO.getFacilityInformation(facilityID);
+            Facility fac = facDAO.getFacilityInformation(facilityID);
             return fac;
         } catch (Exception se) {
-            System.err.println("FacilityService: Threw an Exception retrieving facility.");
+            System.err.println("FacilityService: Threw an Exception retrieving Domain.facility.");
             System.err.println(se.getMessage());
         }
         return null;
     }
 
-    public List<facility> listFacilities(){
+    public List<Facility> listFacilities(){
         //list all facilities
         try {
             return facDAO.listFacilities();
@@ -62,7 +62,7 @@ public class FacilityUtility {
         return null;
     }
 
-    public int requestAvailableCapacity(facility facility){
+    public int requestAvailableCapacity(Facility facility){
         //request available capacity
         try {
 
@@ -71,7 +71,7 @@ public class FacilityUtility {
             int usedRooms = 0;
             if (usage.size() > 0) {
                 for (FacilityUse fu : usage) {
-                    //if currently in use
+                    //if currently in Domain.use
                     if ((LocalDate.now().equals(fu.getStartDate()) || LocalDate.now().isAfter(fu.getStartDate())) &
                             LocalDate.now().equals(fu.getEndDate()) || LocalDate.now().isBefore(fu.getEndDate())) {
                         if (fu.getRoomNumber() == 0) {
@@ -86,7 +86,7 @@ public class FacilityUtility {
             return facility.getFacilityDetails().getRoomNumber() - usedRooms;
 
         } catch (Exception se) {
-            System.err.println("UseService: Threw an Exception requesting the available capacity of a facility.");
+            System.err.println("UseService: Threw an Exception requesting the available capacity of a Domain.facility.");
             System.err.println(se.getMessage());
         }
         return 0;

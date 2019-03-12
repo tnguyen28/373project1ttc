@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="postgres://mzgsdiegylyxge:9cbe94a1aef3112c598427be7686541ad8bfd27909cb85633d318f00c8a3fbcb@ec2-54-243-128-95.compute-1.amazonaws.com:5432/ds1ko1ppmmspp">
+<dataSource name="ds1ko1ppmmspp@ec2-54-243-128-95.compute-1.amazonaws.com">
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.14">
     <root id="1">
       <ServerVersion>10.6</ServerVersion>
