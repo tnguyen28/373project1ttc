@@ -47,7 +47,7 @@ public class FacilityUseTestClient {
         f3.setFacilityDetails(fd3);
         fuse.setFacilityDetails(fufd);
 
-        FU.addNewFacility(fuse);
+        FU.addNewFacility(fuse.getFacility());
         fuse.setStartDate(LocalDate.of(2019, 1, 20));
         fuse.setEndDate(LocalDate.of(2019, 2,15));
         fuse.setRoomNumber(1);
@@ -92,7 +92,7 @@ public class FacilityUseTestClient {
         }
 
         //list usage from DataAccess.database
-        List<FacilityUse> usageList = FUU.listActualUsage(fuse);
+        List<FacilityUse> usageList = FUU.listActualUsage(fuse.getFacility());
         Object[][] usage = new Object[usageList.size() + 1][3];
         usage[0] = new Object[] {"Room Number", "Start Date", "End Date"};
         for (int i = 1; i <= usageList.size(); i++) {
@@ -107,11 +107,11 @@ public class FacilityUseTestClient {
 
         //vacating a Domain.facility
         System.out.println("Vacating a Domain.facility");
-        FUU.vacateFacility(fuse, 1);
+        FUU.vacateFacility(fuse.getFacility(), 1);
         System.out.println("Facility vacated");
 
         //list usage from DataAccess.database
-        List<FacilityUse> usageList2 = FUU.listActualUsage(fuse);
+        List<FacilityUse> usageList2 = FUU.listActualUsage(fuse.getFacility());
         Object[][] usage2 = new Object[usageList2.size() + 1][3];
         usage2[0] = new Object[] {"Room Number", "Start Date", "End Date"};
         for (int i = 1; i <= usageList2.size(); i++) {

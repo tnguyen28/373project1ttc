@@ -23,6 +23,7 @@ public class FacilityUse{
         return endDate;
     }
     public int getFacilityID() { return facilityID; }
+    public Facility getFacility(){return facility;}
     public FacilityDetail getFacilityDetails() { return facilityDetail; }
 
     public void setRoomNumber(int roomNumber){

@@ -24,7 +24,7 @@ public class maintenanceUtility {
     public void scheduleMaintenance(Maintenance maintRequest){
           //schedule Domain.maintenance
         try {
-            maintenanceDAO.scheduleMaintenance(maintRequest);
+            maintenanceDAO.scheduleMaintenance(maintRequest, maintRequest.getFacility());
         } catch (Exception se) {
             System.err.println("MaintenanceUtility: Threw an Exception scheduling Domain.maintenance.");
             System.err.println(se.getMessage());

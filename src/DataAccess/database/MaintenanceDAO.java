@@ -19,7 +19,6 @@ public class MaintenanceDAO {
             Maintenance maint = new Maintenance();
             maint.setDetails(maintenanceDetails);
             maint.setCost(cost);
-            maint.setFacilityID(facility.getFacilityID());
 
             Statement st = DBHelper.getConnection().createStatement();
             String makeMaintRequestQuery = "INSERT INTO maint_request (facility_id, details, cost) VALUES (" +
@@ -43,13 +42,13 @@ public class MaintenanceDAO {
 
     }
 
-    public void scheduleMaintenance(Maintenance maintRequest) {
+    public void scheduleMaintenance(Maintenance maintRequest, Facility fac) {
 
         try {
 
             Statement st = DBHelper.getConnection().createStatement();
             String scheduleMaintenanceAddQuery = "INSERT INTO maintenance (facility_id, details, cost) VALUES (" +
-                    maintRequest.getFacilityID() + ", '" + maintRequest.getDetails() +
+                    fac.getFacilityID() + ", '" + maintRequest.getDetails() +
                     "', " + maintRequest.getCost() + ")";
             st.execute(scheduleMaintenanceAddQuery);
             System.out.println("MaintenanceDAO: *************** Query " + scheduleMaintenanceAddQuery );
@@ -68,7 +67,7 @@ public class MaintenanceDAO {
 
             Statement st = DBHelper.getConnection().createStatement();
             String scheduleMaintenanceRemoveQuery = "DELETE FROM maint_request WHERE facility_id = " +
-                    maintRequest.getFacilityID() + " AND details = " + maintRequest.getDetails();
+                    fac.getFacilityID() + " AND details = " + maintRequest.getDetails();
             st.execute(scheduleMaintenanceRemoveQuery);
             System.out.println("MaintenanceDAO: *************** Query " + scheduleMaintenanceRemoveQuery);
 
@@ -132,7 +131,6 @@ public class MaintenanceDAO {
                 Maintenance maintenanceRequest = new Maintenance();
                 maintenanceRequest.setDetails(maintRS.getString("details"));
                 maintenanceRequest.setCost(maintRS.getInt("cost"));
-                maintenanceRequest.setFacilityID(facility.getFacilityID());
                 listOfMaintRequests.add(maintenanceRequest);
             }
 
@@ -168,7 +166,6 @@ public class MaintenanceDAO {
                 Maintenance maintenance = new Maintenance();
                 maintenance.setDetails(maintRS.getString("details"));
                 maintenance.setCost(maintRS.getInt("cost"));
-                maintenance.setFacilityID(fac.getFacilityID());
                 listOfCompletedMaintenance.add(maintenance);
             }
 
